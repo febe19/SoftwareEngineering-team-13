@@ -4,4 +4,9 @@ import com.google.gwt.user.client.ui.Composite;
 
 public class SelectionPanel extends Composite {
 
+	public SelectionPanel(){
+		
+		
+	}
+	
 }

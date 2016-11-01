@@ -23,7 +23,7 @@ public abstract class ViewPanel extends Composite {
     }
 
 	private void initSelectionPanel() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 }

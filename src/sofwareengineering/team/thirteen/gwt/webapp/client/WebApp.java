@@ -17,7 +17,7 @@ public class WebApp extends TabLayoutPanel implements EntryPoint {
 		setAnimationDuration(300);
 		
 		add(mapView, "Worldmap");
-		add(tableView, "Datatable");
+		add(tableView, "Data Table");
 		
 		selectTab(0);
 		
