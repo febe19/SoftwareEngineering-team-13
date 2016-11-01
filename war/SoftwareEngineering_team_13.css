@@ -1,29 +1,91 @@
-body {
-	background-color: black;
+/** Add css rules here for your application. */
+
+.gwt-TabLayoutPanelTabs {
+  background-color: #373737;
+}
+.gwt-TabLayoutPanelContent {
+  border: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 30px;
+
+}
+.gwt-TabLayoutPanelTab {
+  padding: 17px 75px 21px 75px;
+  cursor: pointer;
+  font-size: 1.8em;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  background: #373737;
+  margin-left: 2px;
+  margin-right: 2px;
+  max-width: 20em;
+}
+.gwt-TabLayoutPanelTab-selected {
+  cursor: default;
+  background: #2f80c7;
+  color: #FFFFFF;
 }
 
-.gwt-Button {
-	box-sizing: content-box;
-	cursor: pointer;
-	padding: 10px 20px;
-	border: none;
-	font: normal 32px/normal Verdana, Geneva, sans-serif;
-	color: rgba(255, 255, 255, 1);
-	text-align: center;
-	-o-text-overflow: clip;
-	text-overflow: clip;
-	background: rgba(0, 0, 0, 1);
+.centered{
+  margin-left: auto;
+  margin-right: auto;
 }
 
-button:focus {
-	outline: 0 !important;
+.menu{
+  color: #ffffff;
+  font-weight: bold;
 }
 
-.gwt-Button:hover {
-	color: rgba(224, 74, 0, 1);
+.content{
+  background: #ffffff;
+  color: #1c1c1c;
 }
 
-.gwt-Button:active{
-  border: 0 solid rgba(224, 74, 0, 1);
-  border-bottom-width: 4px;
+.background{
+  background: #373737;
+  color: white;
+}
+
+.textInput{
+  width: 200px;
+  height: 20px;
+  border: none;
+  background: #1c1c1c;
+  font-weight: normal;
+  margin-left: 10px;
+  margin-right: 25px;
+}
+
+.slider{
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 20px;
+  margin-right: 40px;
+}
+
+.filterPanel{
+  margin: 20px;
+}
+
+.wiki{
+  border-left: 2px solid #373737;
+  padding: 10px;
+  background: #ffffff;
+  color: #1c1c1c;
+}
+
+.wiki img{
+  width: 20.4em;
+}
+
+.wiki h3{
+
+}
+
+.gwt-PopupPanelGlass {
+  background-color: #000;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
 }
