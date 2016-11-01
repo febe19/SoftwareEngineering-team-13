@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='softwareengineering_team_13'>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+
+	
+	<!-- Specify the app entry point class. -->
+	<entry-point
+		class='sofwareengineering.team.thirteen.gwt.webapp.client.WebApp' />
+</module>

@@ -1,0 +1,29 @@
+body {
+	background-color: black;
+}
+
+.gwt-Button {
+	box-sizing: content-box;
+	cursor: pointer;
+	padding: 10px 20px;
+	border: none;
+	font: normal 32px/normal Verdana, Geneva, sans-serif;
+	color: rgba(255, 255, 255, 1);
+	text-align: center;
+	-o-text-overflow: clip;
+	text-overflow: clip;
+	background: rgba(0, 0, 0, 1);
+}
+
+button:focus {
+	outline: 0 !important;
+}
+
+.gwt-Button:hover {
+	color: rgba(224, 74, 0, 1);
+}
+
+.gwt-Button:active{
+  border: 0 solid rgba(224, 74, 0, 1);
+  border-bottom-width: 4px;
+}
