@@ -2,9 +2,9 @@ package sofwareengineering.team.thirteen.gwt.webapp.client;
 
 import com.google.gwt.user.client.ui.Label;
 
-public class Table extends ViewPanel{
+public class TableView extends ViewPanel{
 	
-	public Table(){
+	public TableView(){
 		super.createPanel();
 		
 	}
