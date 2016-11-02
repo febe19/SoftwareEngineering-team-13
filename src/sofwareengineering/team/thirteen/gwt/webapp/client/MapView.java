@@ -1,7 +1,7 @@
 package sofwareengineering.team.thirteen.gwt.webapp.client;
 
 
-// test erion
+// test erion 2
 public class MapView extends ViewPanel {
 
 	public MapView(){
