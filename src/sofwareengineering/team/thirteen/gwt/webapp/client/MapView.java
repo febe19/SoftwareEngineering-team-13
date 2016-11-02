@@ -10,9 +10,4 @@ public class MapView extends ViewPanel {
 		
 	}
 	
-	public void my_toString () {
-		System.out.println("Hello World");
-	}
-	
-	
 }
