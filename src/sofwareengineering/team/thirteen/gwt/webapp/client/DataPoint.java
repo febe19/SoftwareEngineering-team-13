@@ -9,7 +9,9 @@ public class DataPoint {
 	private double averageTemperature;
 	private double uncertainity;
 	
+	
 	public int getId() {
+		System.out.println("Hello world");
 		return id;
 	}
 	public void setId(int id) {
