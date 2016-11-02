@@ -13,7 +13,7 @@ public class DataSet implements Filter {
 	
     public static void csvParser() {
 
-    	String csvFile = "/Users/ilecipi/Dropbox/Workspace/ImportFile/src/GlobalLandTemperaturesByMajorCity_v1.csv";
+    	String csvFile = "https://github.com/febe19/SoftwareEngineering-team-13/blob/dev/src/sofwareengineering/team/thirteen/gwt/webapp/client/GlobalLandTemperaturesByMajorCity_v1.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
