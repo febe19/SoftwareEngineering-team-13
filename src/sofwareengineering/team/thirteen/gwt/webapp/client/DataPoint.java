@@ -1,8 +1,15 @@
 package sofwareengineering.team.thirteen.gwt.webapp.client;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class DataPoint {
 	private int id;
 	private int year;
+	private int month;
+	private String region;
 	private String country;
 	private String latitude;
 	private String longitude;
@@ -10,6 +17,20 @@ public class DataPoint {
 	private double uncertainity;
 	
 	
+public DataPoint(int id, int year, int month,String region, String country, String latitude, String longitude, double averageTemperature,
+		double uncertainity) {
+		super();
+		this.id = id;
+		this.year = year;
+		this.month = month;
+		this.region = region;
+		this.country = country;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.averageTemperature = averageTemperature;
+		this.uncertainity = uncertainity;
+	}
+
 	public int getId() {
 		return id;
 	}
