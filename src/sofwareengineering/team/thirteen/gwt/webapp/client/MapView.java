@@ -6,6 +6,5 @@ public class MapView extends ViewPanel {
 
 	public MapView(){
 		super.createPanel();
-	}
-	
+	}	
 }

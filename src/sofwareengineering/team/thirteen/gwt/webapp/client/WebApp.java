@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
 public class WebApp extends TabLayoutPanel implements EntryPoint {
 	
 	private ViewPanel mapView = new MapView();
-	private ViewPanel tableView = new TableView();
+	private ViewPanel tableView = new Table();
 	
 	
 	public WebApp(){
