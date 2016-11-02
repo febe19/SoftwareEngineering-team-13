@@ -11,7 +11,6 @@ public class DataPoint {
 	
 	
 	public int getId() {
-		System.out.println("Hello world");
 		return id;
 	}
 	public void setId(int id) {
