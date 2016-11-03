@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class DataPoint {
-	// shkooo shkooo 
+	
 	private int id;
 	private int year;
 	private int month;

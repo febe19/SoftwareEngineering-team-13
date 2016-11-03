@@ -26,9 +26,6 @@ public class DataSet implements Filter {
                 // use comma as separator
                 
             	dataSet.add(line.split(cvsSplitBy));
-
-                
-
             }
 
             for(int i=1;i<dataSet.size();i++){
