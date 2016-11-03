@@ -2,8 +2,8 @@ package sofwareengineering.team.thirteen.gwt.webapp.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 
@@ -13,12 +13,11 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 	private MapView mapView = new MapView();
 	private TableView tableView = new TableView();
 	private SelectionPanel selectionPanel = new SelectionPanel();
-	private Button B = new Button("JUMPer");
 	
 	public WebApp(){
-		
+		//Create DockLayoutPanel -- first Panel inserted to Root Panel
 		super(Style.Unit.EM);
-		
+		//Create TabLayoutPanel and add two tabs
 		TabLayoutPanel menu = new TabLayoutPanel(5, Style.Unit.EM);
 		
 		menu.add(mapView, "Worldmap");
@@ -26,9 +25,11 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		menu.selectTab(0);
 		menu.setAnimationDuration(400);
 		
+		selectionPanel.setStyleName("gwt-SelectionPanel");
+		mapView.setStyleName("gwt-TabPanel");
 		
-		addNorth(menu,70);
-		//addSouth(B,10);
+		//Add tabPanle to north and selectionpanel to south
+		addNorth(menu,37.5);
 		addSouth(selectionPanel, 10);
 	}
 	

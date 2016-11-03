@@ -5,6 +5,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Label;
 
+
 public class MapView extends Composite {
 	
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.EM);
@@ -16,10 +17,10 @@ public class MapView extends Composite {
 	}	
 	
 	private void initContent() {
-		// SHows COntent in MainPanel
+		// Shows COntent in MainPanel
 		Label l = new Label("Here we will put the Geo Chart of the World map");
 		mainPanel.addNorth(l,20);
 	}
-
+	
 }
 
