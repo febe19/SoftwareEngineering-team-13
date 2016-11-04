@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class DataSet implements Filter {
 
 	private static int DataPointId = 0;
-	
+
     private ArrayList<DataPoint> dataPoints = new ArrayList<DataPoint>();
 	
     public static void csvParser() {
