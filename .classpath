@@ -7,5 +7,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="gwt-charts-0.9.9.jar"/>
 	<classpathentry kind="lib" path="gwtbootstrap3-0.9.3.jar"/>
+	<classpathentry kind="lib" path="gwtbootstrap3-extras-0.9.3.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

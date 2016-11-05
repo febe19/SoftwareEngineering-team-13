@@ -17,6 +17,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 	public WebApp(){
 		//Create DockLayoutPanel -- first Panel inserted to Root Panel
 		super(Style.Unit.EM);
+		
 		//Create TabLayoutPanel and add two tabs
 		TabLayoutPanel menu = new TabLayoutPanel(5, Style.Unit.EM);
 		
@@ -29,8 +30,8 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		mapView.setStyleName("gwt-TabPanel");
 		
 		//Add tabPanle to north and selectionpanel to south
-		addNorth(menu,37.5);
-		addSouth(selectionPanel, 10);
+		addNorth(menu,35);
+		addSouth(selectionPanel, 15);
 	}
 	
 	

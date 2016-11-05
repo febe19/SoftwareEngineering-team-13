@@ -61,25 +61,97 @@
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
 	width: 160px;
-	padding: 14px;
+	padding: 7px;
 	border: none;
-	font: normal 25px/normal Verdana, Geneva, sans-serif;
+	margin: 10px 10px 1px;
+	font: normal 15px/normal Verdana, Geneva, sans-serif;
 	color: rgba(0, 0, 0, 1);
-	text-align: center;
-	
+	text-align: left;
+	text-align: bottom;
+}
+
+.gwt-SliderLabel {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	width: 160px;
+	padding: 7px;
+	border: none;
+	margin: 1px;
+	font: normal 15px/normal Verdana, Geneva, sans-serif;
+	color: rgba(0, 0, 0, 1);
+	text-align: left;
+	text-align: bottom;
+}
+
+.gwt-Slider{
+	margin: 10px;
+}
+
+.gwt-FilterLabelInfo {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	width: 320px;
+	padding: 7px;
+	border: none;
+	font: normal 15px/normal Verdana, Geneva, sans-serif;
+	color: rgba(0, 0, 0, 1);
+	text-align: left;
+	text-align: bottom;
 }
 
 .gwt-FilterTextInput {
+	display: inline-block;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	padding: 7px 7px;
+	border: 1px solid rgba(255, 97, 0, 1);
+	border-radius: 45px;
+	margin: 1px 10px 10px;
+	font: normal 15px/1 Verdana, Geneva, sans-serif;
+	color: rgba(0, 0, 0, 1);
+	-o-text-overflow: clip;
+	text-overflow: clip;
+	background: rgba(252, 252, 252, 1);
+}
+
+input {
+	outline: none;
+}
+
+Button {
+	outline: none;
+}
+
+.gwt-SelectionButton {
   display: inline-block;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
+  cursor: pointer;
+  margin: 10px;
   padding: 10px 20px;
-  border: 1px solid rgba(255, 97, 0, 1);
-  border-radius: 45px;
-  font: normal 30px/1 Verdana, Geneva, sans-serif
+  border: 1px solid rgba(255,97,0,1);
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+  font: normal 15px/normal Verdana, Geneva, sans-serif;
   color: rgba(0,0,0,1);
   -o-text-overflow: clip;
   text-overflow: clip;
-  background: rgba(252,252,252,1);
+  background: rgb(255,255,255);
+}
+
+.gwt-SelectionButton:hover {
+  -webkit-border-radius: 52px;
+  border-radius: 52px;
+  color: rgba(255, 97, 0, 1);
+}
+
+.gwt-SelectionButton:active {
+  -webkit-border-radius: 28px;
+  border-radius: 28px;
+  color: rgba(255,255,255,1);
+  background: rgba(255, 97, 0, 1);
 }

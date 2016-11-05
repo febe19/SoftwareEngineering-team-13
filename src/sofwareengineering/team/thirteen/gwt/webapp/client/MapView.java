@@ -37,6 +37,7 @@ public class MapView extends Composite {
 
 	private void draw() {
 		// Prepare the data which is shown
+		//TODO: Function, which get the right data form the list.
 
 		DataTable dataTable = DataTable.create();
 		dataTable.addColumn(ColumnType.STRING, "City");
