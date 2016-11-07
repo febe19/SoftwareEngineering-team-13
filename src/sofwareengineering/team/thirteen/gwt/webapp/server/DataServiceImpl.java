@@ -14,22 +14,19 @@ import sofwareengineering.team.thirteen.gwt.webapp.client.DataService;
 import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
 
 public class DataServiceImpl extends RemoteServiceServlet implements DataService {
-
+	private static final String DATA_FILE = "resources/GlobalLandTemperaturesByMajorCity_v1.csv";
+	private static final String CSV_SEPARATOR = ",";
+	
 	public List<DataPoint> getData() {
-		
-		final String csvFile = "resources/GlobalLandTemperaturesByMajorCity_v1.csv";
         BufferedReader br = null;
         String line = "";
-        String cvsSplitBy = ",";
+        
         ArrayList<String[]> dataSet = new ArrayList<String[]>();
         ArrayList<DataPoint> dataPoints = new ArrayList<DataPoint>();
         try {
-            br = new BufferedReader(new FileReader(csvFile));
+            br = new BufferedReader(new FileReader(DATA_FILE));
             while ((line = br.readLine()) != null) {
-
-                // use comma as separator
-                
-            	dataSet.add(line.split(cvsSplitBy));
+            	dataSet.add(line.split(CSV_SEPARATOR));
             }
 
             for(int i=1;i<dataSet.size();i++){
