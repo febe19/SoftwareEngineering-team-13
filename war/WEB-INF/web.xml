@@ -8,4 +8,16 @@
 	<welcome-file-list>
 		<welcome-file>SoftwareEngineering_team_13.htm</welcome-file>
 	</welcome-file-list>
+	
+	<!-- Servlets -->
+  <servlet>
+    <servlet-name>dataServiceImpl</servlet-name>
+    <servlet-class>sofwareengineering.team.thirteen.gwt.webapp.server.DataServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>dataServiceImpl</servlet-name>
+    <url-pattern>/softwareengineering_team_13/DataBaseService</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

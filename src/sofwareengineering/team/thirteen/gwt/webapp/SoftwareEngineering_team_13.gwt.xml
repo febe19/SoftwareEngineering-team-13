@@ -9,6 +9,8 @@
 	<inherits name="org.gwtbootstrap3.extras.slider.Slider"/>
 	
 	<!-- Specify the app entry point class. -->
-	<entry-point
-		class='sofwareengineering.team.thirteen.gwt.webapp.client.WebApp' />
+	<entry-point class='sofwareengineering.team.thirteen.gwt.webapp.client.WebApp' />
+ 
+	<source path="client"/>
+	<source path="shared"/>
 </module>
