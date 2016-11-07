@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
 
-@RemoteServiceRelativePath("DataBaseService")
+@RemoteServiceRelativePath("data")
 public interface DataService extends RemoteService{
 	List<DataPoint> getData();
 

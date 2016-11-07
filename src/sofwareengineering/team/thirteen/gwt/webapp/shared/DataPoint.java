@@ -1,8 +1,8 @@
 package sofwareengineering.team.thirteen.gwt.webapp.shared;
 
-import java.io.Serializable;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class DataPoint implements Serializable{
+public class DataPoint implements IsSerializable{
 	
 	private int id;
 	private int year;
@@ -14,7 +14,8 @@ public class DataPoint implements Serializable{
 	private double averageTemperature;
 	private double uncertainity;
 	
-	
+/*Empty constructor needed for serialization*/
+public DataPoint(){}
 public DataPoint(int id, int year, int month,String region, String country, String latitude, String longitude, double averageTemperature,
 		double uncertainity) {
 		super();

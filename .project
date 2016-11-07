@@ -47,11 +47,4 @@
 		<nature>com.google.gwt.eclipse.core.gwtNature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/SoftwareEngineering_team_13.gwt.xml</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/src/sofwareengineering/team/thirteen/gwt/webapp/SoftwareEngineering_team_13.gwt.xml</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

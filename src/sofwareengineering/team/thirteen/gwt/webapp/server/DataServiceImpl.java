@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import sofwareengineering.team.thirteen.gwt.webapp.client.DataService;
@@ -16,7 +17,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 
 	public List<DataPoint> getData() {
 		
-		final String csvFile = "res/GlobalLandTemperaturesByMajorCity_v1.csv";
+		final String csvFile = "resources/GlobalLandTemperaturesByMajorCity_v1.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";

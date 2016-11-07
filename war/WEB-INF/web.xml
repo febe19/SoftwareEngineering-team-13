@@ -17,7 +17,7 @@
 
   <servlet-mapping>
     <servlet-name>dataServiceImpl</servlet-name>
-    <url-pattern>/softwareengineering_team_13/DataBaseService</url-pattern>
+    <url-pattern>/softwareengineering_team_13/data</url-pattern>
   </servlet-mapping>
   
 </web-app>
