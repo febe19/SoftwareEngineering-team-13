@@ -7,6 +7,8 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Label;
 
+import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
+
 public class TableView extends Composite {
 
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.EM);
