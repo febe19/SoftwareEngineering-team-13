@@ -60,8 +60,8 @@ public class SelectionPanel extends Composite {
 		infoLabel.setStyleName("gwt-FilterLabelInfo");
 		fillHorizontalPanel();
 		mainPanel.addNorth(infoLabel, 2);
-		mainPanel.addWest(criteriaPanel, 35);
-		mainPanel.addWest(sliderPanel, 60);
+		mainPanel.addWest(criteriaPanel, 20);
+		mainPanel.addWest(sliderPanel, 100);
 		mainPanel.addEast(buttonPanel, 20);
 
 		// Action When reset Button is clicked
@@ -153,21 +153,18 @@ public class SelectionPanel extends Composite {
 		temperature.setStyleName("gwt-SliderLabel");
 		uncertainity.setStyleName("gwt-SliderLabel");
 
-		yearSlider.setStyleName("gwt-Slider");
-		tempSlider.setStyleName("gwt-Slider");
-		uncertainitySlider.setStyleName("gwt-Slider");
-
 		yearSlider.setMin(1849);
 		yearSlider.setMax(2013);
-		yearSlider.setWidth("400px");
+		yearSlider.setWidth("750px");
+		
 
 		tempSlider.setMin(-5);
 		tempSlider.setMax(50);
-		tempSlider.setWidth("400px");
+		tempSlider.setWidth("750px");
 
 		uncertainitySlider.setMin(0);
 		uncertainitySlider.setMax(3);
-		uncertainitySlider.setWidth("100px");
+		uncertainitySlider.setWidth("200px");
 	}
 
 }
