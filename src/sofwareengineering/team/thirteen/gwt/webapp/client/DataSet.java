@@ -17,10 +17,10 @@ public class DataSet implements Filter {
     	      dataService = GWT.create(DataService.class);
     	    }
 
-    	    AsyncCallback<List<DataPoint>> callback = new AsyncCallback<List<DataPoint>>() {
+    	    AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
 
 			@Override
-			public void onSuccess(List<DataPoint> result) {
+			public void onSuccess(ArrayList<DataPoint> result) {
 				data=result;
 			}
 
