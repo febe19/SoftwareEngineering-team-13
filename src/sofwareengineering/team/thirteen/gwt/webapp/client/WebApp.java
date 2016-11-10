@@ -13,7 +13,6 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 	private MapView mapView = new MapView();
 	private TableView tableView = new TableView();
 	private SelectionPanel selectionPanel = new SelectionPanel();
-	private DataSet dataSet;
 	
 	public WebApp(){
 		//Create DockLayoutPanel -- first Panel inserted to Root Panel
@@ -40,10 +39,6 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 	public void onModuleLoad() {
 		WebApp webApp = new WebApp();
 		RootLayoutPanel.get().add(webApp);
-		
-		dataSet = new DataSet();
-		dataSet.getData();
-		
 	}
 
 }

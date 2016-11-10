@@ -7,6 +7,7 @@
 	<inherits name='org.gwtbootstrap3.GwtBootstrap3' />
 	<inherits name='org.gwtbootstrap3.GwtBootstrap3Theme' />
 	<inherits name="org.gwtbootstrap3.extras.slider.Slider"/>
+	<inherits name="org.gwtbootstrap3.extras.slider.Slider"/>
 	
 	<!-- Specify the app entry point class. -->
 	<entry-point class='sofwareengineering.team.thirteen.gwt.webapp.client.WebApp' />

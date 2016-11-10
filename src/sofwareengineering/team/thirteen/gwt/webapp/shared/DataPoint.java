@@ -22,7 +22,7 @@ public DataPoint(int id, int year, int month,String region, String country, Stri
 		this.id = id;
 		this.year = year;
 		this.month = month;
-		this.region = region;
+		this.setRegion(region);
 		this.country = country;
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -72,5 +72,11 @@ public DataPoint(int id, int year, int month,String region, String country, Stri
 	}
 	public void setUncertainity(double uncertainity) {
 		this.uncertainity = uncertainity;
+	}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
 	}
 }

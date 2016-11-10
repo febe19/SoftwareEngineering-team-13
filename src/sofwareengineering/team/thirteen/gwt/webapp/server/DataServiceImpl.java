@@ -4,9 +4,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.appengine.api.utils.SystemProperty;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -14,54 +20,82 @@ import sofwareengineering.team.thirteen.gwt.webapp.client.DataService;
 import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
 
 public class DataServiceImpl extends RemoteServiceServlet implements DataService {
+	
 	private static final String DATA_FILE = "resources/GlobalLandTemperaturesByMajorCity_v1.csv";
 	private static final String CSV_SEPARATOR = ",";
 	
-	public List<DataPoint> getData() {
-        BufferedReader br = null;
-        String line = "";
+	//TODO make static final
+	private static final String PROD_PASSWORD = "1234";
+	private String prodUrl="jdbc:google:mysql://softwareengineeringteam13:europe-west1:se13/se13";
+	private String prodUser="root";
+	
+	private String devUser="paedi";
+	private String devPassword="AY0nVCAmYDL331og";
+	private String devUrl="jdbc:mysql://paedi.icu.uzh.ch:8080/paedi";
+	
+	private String testDriver = "com.mysql.jdbc.Driver";
+    private String prodDriver = "com.mysql.jdbc.GoogleDriver";
+    public DataServiceImpl(){}
+
+    private Connection getConnection(){
         
-        ArrayList<String[]> dataSet = new ArrayList<String[]>();
-        ArrayList<DataPoint> dataPoints = new ArrayList<DataPoint>();
-        try {
-            br = new BufferedReader(new FileReader(DATA_FILE));
-            while ((line = br.readLine()) != null) {
-            	dataSet.add(line.split(CSV_SEPARATOR));
+        Connection conn = null;
+
+        if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+
+            try {
+                Class.forName(prodDriver); 
+                conn = DriverManager.getConnection(prodUrl,prodUser,PROD_PASSWORD );
+            }catch(Exception e){
+                e.printStackTrace();
             }
 
-            for(int i=1;i<dataSet.size();i++){
-            	int id=i;
-            	int year = Integer.parseInt(((dataSet.get(i))[0]).substring(0, 4));
-            	int month = Integer.parseInt(((dataSet.get(i))[0]).substring(5, 7));
-            	String region =  ((dataSet.get(i))[3]);
-            	String country = ((dataSet.get(i))[4]);
-            	String latitude = ((dataSet.get(i))[5]);
-            	String longitude = ((dataSet.get(i))[6]);
-            	double averageTemperature = Double.parseDouble(dataSet.get(i)[1]);
-            	double uncertainity = Double.parseDouble(dataSet.get(i)[2]);
-            	
-            	dataPoints.add(new DataPoint(id,year,month,region,country,
-            			latitude,longitude,averageTemperature,uncertainity));
-            	}
-            
-            
-            
-            
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        } else {
+        	
+            try {
+                Class.forName(testDriver);
+                conn = DriverManager.getConnection(devUrl,devUser,devPassword);
+            }catch(Exception e){
+                e.printStackTrace();
             }
         }
-        
-		return dataPoints;
+
+        return conn;
+
+    }
+    
+    
+    
+	public ArrayList<DataPoint> getData() {
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		ResultSet result;
+		
+		ArrayList<DataPoint> data = new ArrayList();
+		
+		try {
+			statement = connection.prepareStatement("SELECT * FROM `temperature-data`");
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				
+				double temp = result.getDouble("Temperature");
+				String city = result.getString("City");
+				String country = result.getString("Country");
+				
+				DataPoint p = new DataPoint();
+				p.setAverageTemperature(temp);
+				p.setRegion(city);
+				p.setCountry(country);
+				
+				data.add(p);		
+            }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return data;
 	}
 
 }

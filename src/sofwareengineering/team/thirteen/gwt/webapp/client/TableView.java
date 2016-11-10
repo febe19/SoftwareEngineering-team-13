@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.Label;
 
 import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
 
-public class TableView extends Composite {
+public class TableView extends DataView {
 
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.EM);
 	private CellTable<DataPoint> dataTable = new CellTable<DataPoint>();
@@ -83,5 +83,11 @@ public class TableView extends Composite {
         dataTable.addColumn(uncertainityColumn, "Uncertainity");
         dataTable.addColumn(dateColumn, "Date");
         
+	}
+
+	@Override
+	public void fetchData() {
+		// TODO Auto-generated method stub
+		
 	}
 }

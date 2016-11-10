@@ -1,19 +1,29 @@
 package sofwareengineering.team.thirteen.gwt.webapp.client;
 
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.dom.client.Style;
 import com.googlecode.gwt.charts.client.*;
 import com.googlecode.gwt.charts.client.geochart.GeoChart;
 import com.googlecode.gwt.charts.client.options.DisplayMode;
+
+import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
+
 import com.googlecode.gwt.charts.client.geochart.GeoChartColorAxis;
 import com.googlecode.gwt.charts.client.geochart.GeoChartOptions;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 
-public class MapView extends Composite {
+public class MapView extends DataView {
 
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.PX);
 	private GeoChart geoChart;
+	//private Logger l = new Logger("MapViewLog");
 
 	// Create the MapView
 	public MapView() {
@@ -30,7 +40,7 @@ public class MapView extends Composite {
 				// Create and attach the chart
 				geoChart = new GeoChart();
 				mainPanel.add(geoChart);
-				draw();
+				fetchData();
 			}
 		});
 	}
@@ -39,36 +49,24 @@ public class MapView extends Composite {
 		// Prepare the data which is shown
 		//TODO: Function, which get the right data form the list.
 
-		DataTable dataTable = DataTable.create();
-		dataTable.addColumn(ColumnType.STRING, "City");
-		dataTable.addColumn(ColumnType.NUMBER, "Temperature");
-		dataTable.addRows(12);
-		dataTable.setValue(0, 0, "Rome");
-		dataTable.setValue(0, 1, 25);
-		dataTable.setValue(1, 0, "Paris");
-		dataTable.setValue(1, 1, 15);
-		dataTable.setValue(2, 0, "New York");
-		dataTable.setValue(2, 1, 10);
-		dataTable.setValue(3, 0, "Hong Kong");
-		dataTable.setValue(3, 1, 28);
-		dataTable.setValue(4, 0, "Sydney");
-		dataTable.setValue(4, 1, 32);
-		dataTable.setValue(5, 0, "Miami");
-		dataTable.setValue(5, 1, 27);
-		dataTable.setValue(6, 0, "Istanbul");
-		dataTable.setValue(6, 1, 27);
-		dataTable.setValue(7, 0, "Oslo");
-		dataTable.setValue(7, 1, -5);
-		dataTable.setValue(8, 0, "Vancouver");
-		dataTable.setValue(8, 1, -2);
-		dataTable.setValue(9, 0, "Buenos Aires");
-		dataTable.setValue(9, 1, 12);
-		dataTable.setValue(10, 0, "Kapstadt");
-		dataTable.setValue(10, 1, 0);
-		dataTable.setValue(11, 0, "Tokyo");
-		dataTable.setValue(11, 1, 3);
-
-		geoChart.draw(dataTable, getGeoChartOptions());
+		if(getData()!=null){
+			
+			DataTable dataTable = DataTable.create();
+			dataTable.addColumn(ColumnType.STRING, "City");
+			dataTable.addColumn(ColumnType.NUMBER, "Temperature");
+			
+			dataTable.addRows(getData().size());
+			for(int i = 0; i<getData().size(); i++){
+				
+				dataTable.setValue(i,0,getData().get(i).getRegion());
+				dataTable.setValue(i, 1,getData().get(i).getAverageTemperature());
+				
+				GWT.log(getData().get(i).getRegion());
+				
+			}
+			geoChart.draw(dataTable, getGeoChartOptions());			
+		}
+		
 	}
 
 	// Set Style Option for Geocart 											TODO: Size of the markers
@@ -76,15 +74,35 @@ public class MapView extends Composite {
 		GeoChartOptions options = GeoChartOptions.create();
 		options.setDisplayMode(DisplayMode.MARKERS);
 		GeoChartColorAxis geoChartColorAxis = GeoChartColorAxis.create();
-		geoChartColorAxis.setColors(getNativeArray());
+		geoChartColorAxis.setColors("0000FF", "5858FA", "A9A9F5", "F7819F", "FE2E64", "FF0040");
 		options.setColorAxis(geoChartColorAxis);
 		options.setDatalessRegionColor("#373737");
 		return options;
 
 	}
-	// Set Color for Markers
-	private native JsArrayString getNativeArray() /*-{
-		return [ "0000FF", "5858FA", "A9A9F5", "F7819F", "FE2E64", "FF0040" ];
-	}-*/;
+	
+	@Override
+	public void fetchData() {
+  	//how to handle the Antwort vom Server
+  	    AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
+
+			@Override
+			public void onSuccess(ArrayList<DataPoint> result) {
+				setData(result);
+				draw();
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Do something
+				
+			}
+			
+  	    };
+
+  	    //call to server
+  	    getDataService().getData(callback);
+		
+	}
 
 }
