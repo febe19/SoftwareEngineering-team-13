@@ -36,7 +36,7 @@ public class SelectionPanel extends Composite {
 	private VerticalPanel buttonPanel = new VerticalPanel();
 
 	private Label country = new Label("Country");
-	private TextBox countryIN = new TextBox();
+	private TextBox countryIN = new TextBox();		//TODO check for suggestion panel 
 	private Label city = new Label("City");
 	private TextBox cityIN = new TextBox();
 
@@ -47,6 +47,7 @@ public class SelectionPanel extends Composite {
 	private RangeSlider tempSlider = new RangeSlider();
 	private Slider uncertainitySlider = new Slider();
 	private ToggleButton showUncertainity = new ToggleButton("Show uncertain Data -- ToggleButton");
+	
 
 	private Button exportButton = new Button("Export");
 	private Button resetButton = new Button("Reset Selection");
