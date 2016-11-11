@@ -99,6 +99,6 @@ public class MapView extends DataView {
 		};
 
 		// call to server
-		getDataService().getData(callback);
+		getDataService().getMapData(2011,callback);
 	}
 }

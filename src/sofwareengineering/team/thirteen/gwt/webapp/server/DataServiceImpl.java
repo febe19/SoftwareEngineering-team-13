@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,7 +66,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
     }
     
     
-    //Methode gets the data from the DB and return it in form of an arrayList. 
+    //Method gets the data from the DB and return it in form of an arrayList. 
 	public ArrayList<DataPoint> getData() {
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
@@ -97,5 +98,45 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		
 		return data;
 	}
+	
+	public ArrayList<DataPoint> getMapData(int year) {
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		ResultSet result;
+		
+		ArrayList<DataPoint> data = new ArrayList();
+		
+		String query = 
+				  "SELECT YEAR(Date), City, AVG(Temperature) AS t FROM `temperature-data` "
+				+ "WHERE YEAR(DATE) = ? "
+				+ "GROUP BY City, YEAR(DATE)";
+		
+		try {
+			statement = connection.prepareStatement(query);
+			statement.setInt(1, year);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				
+				double temp = result.getDouble("t");
+				String city = result.getString("City");
+				
+				DataPoint p = new DataPoint();
+				p.setAverageTemperature(temp);
+				p.setRegion(city);
+				
+				data.add(p);	
+            }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return data;
+	}
+	
+	
+	
+	
 
 }
