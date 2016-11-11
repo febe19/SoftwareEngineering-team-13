@@ -6,6 +6,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -17,6 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import org.gwtbootstrap3.extras.slider.client.ui.Range;
 import org.gwtbootstrap3.extras.slider.client.ui.RangeSlider;
+import org.gwtbootstrap3.extras.slider.client.ui.Slider;
 import org.gwtbootstrap3.extras.slider.client.ui.base.event.SlideStopEvent;
 import org.gwtbootstrap3.extras.slider.client.ui.base.event.SlideStopHandler;
 
@@ -41,13 +43,14 @@ public class SelectionPanel extends Composite {
 	private Label year = new Label("Year");
 	private Label temperature = new Label("Temperature");
 	private Label uncertainity = new Label("Uncertainity");
-	private RangeSlider yearSlider = new RangeSlider();
+	private Slider yearSlider = new Slider();
 	private RangeSlider tempSlider = new RangeSlider();
-	private RangeSlider uncertainitySlider = new RangeSlider();
-	private ToggleButton showUncertainity = new ToggleButton("Show uncertain Data");
+	private Slider uncertainitySlider = new Slider();
+	private ToggleButton showUncertainity = new ToggleButton("Show uncertain Data -- ToggleButton");
 
 	private Button exportButton = new Button("Export");
 	private Button resetButton = new Button("Reset Selection");
+	private Anchor source = new Anchor("Raw data is from Berkeley Earth.", false, "http://www.berkeleyearth.org");
 
 	public SelectionPanel() {
 		initWidget(mainPanel);
@@ -60,8 +63,8 @@ public class SelectionPanel extends Composite {
 		infoLabel.setStyleName("gwt-FilterLabelInfo");
 		fillHorizontalPanel();
 		mainPanel.addNorth(infoLabel, 2);
-		mainPanel.addWest(criteriaPanel, 35);
-		mainPanel.addWest(sliderPanel, 60);
+		mainPanel.addWest(criteriaPanel, 25);
+		mainPanel.addWest(sliderPanel, 100);
 		mainPanel.addEast(buttonPanel, 20);
 
 		// Action When reset Button is clicked
@@ -134,6 +137,7 @@ public class SelectionPanel extends Composite {
 		initButtonStile();
 		buttonPanel.add(exportButton);
 		buttonPanel.add(resetButton);
+		buttonPanel.add(source);
 
 	}
 
@@ -159,15 +163,17 @@ public class SelectionPanel extends Composite {
 
 		yearSlider.setMin(1849);
 		yearSlider.setMax(2013);
-		yearSlider.setWidth("400px");
+		yearSlider.setWidth("700px");
 
-		tempSlider.setMin(-5);
-		tempSlider.setMax(50);
-		tempSlider.setWidth("400px");
+		tempSlider.setMin(-10);
+		tempSlider.setMax(60);
+		tempSlider.setStep(0.5);
+		tempSlider.setWidth("700px");
 
 		uncertainitySlider.setMin(0);
 		uncertainitySlider.setMax(3);
-		uncertainitySlider.setWidth("100px");
+		uncertainitySlider.setStep(0.05);
+		uncertainitySlider.setWidth("200px");
 	}
 
 }

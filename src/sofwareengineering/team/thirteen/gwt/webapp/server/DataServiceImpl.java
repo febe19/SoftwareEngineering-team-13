@@ -24,14 +24,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 	private static final String DATA_FILE = "resources/GlobalLandTemperaturesByMajorCity_v1.csv";
 	private static final String CSV_SEPARATOR = ",";
 	
-	//TODO make static final
+	//Login for dataBank
 	private static final String PROD_PASSWORD = "1234";
-	private String prodUrl="jdbc:google:mysql://softwareengineeringteam13:europe-west1:se13/se13";
-	private String prodUser="root";
+	private static final String PROD_URL="jdbc:google:mysql://softwareengineeringteam13:europe-west1:se13/se13";
+	private static final String PROD_USER="root";
 	
-	private String devUser="paedi";
-	private String devPassword="AY0nVCAmYDL331og";
-	private String devUrl="jdbc:mysql://paedi.icu.uzh.ch:8080/paedi";
+	private static final String DEV_USER="paedi";
+	private static final String DEV_PASSWORD="AY0nVCAmYDL331og";
+	private static final String DEV_URL="jdbc:mysql://paedi.icu.uzh.ch:8080/paedi";
 	
 	private String testDriver = "com.mysql.jdbc.Driver";
     private String prodDriver = "com.mysql.jdbc.GoogleDriver";
@@ -45,7 +45,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 
             try {
                 Class.forName(prodDriver); 
-                conn = DriverManager.getConnection(prodUrl,prodUser,PROD_PASSWORD );
+                conn = DriverManager.getConnection(PROD_URL,PROD_USER,PROD_PASSWORD );
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -54,7 +54,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
         	
             try {
                 Class.forName(testDriver);
-                conn = DriverManager.getConnection(devUrl,devUser,devPassword);
+                conn = DriverManager.getConnection(DEV_URL,DEV_USER,DEV_PASSWORD);
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -65,7 +65,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
     }
     
     
-    
+    //Methode gets the data from the DB and return it in form of an arrayList. 
 	public ArrayList<DataPoint> getData() {
 		Connection connection = getConnection();
 		PreparedStatement statement = null;

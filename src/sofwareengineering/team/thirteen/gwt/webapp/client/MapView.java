@@ -23,7 +23,7 @@ public class MapView extends DataView {
 
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.PX);
 	private GeoChart geoChart;
-	//private Logger l = new Logger("MapViewLog");
+	// private Logger l = new Logger("MapViewLog");
 
 	// Create the MapView
 	public MapView() {
@@ -45,46 +45,46 @@ public class MapView extends DataView {
 		});
 	}
 
+	// Prepare the data which is shown
+	//The data will come in form of an ArrayList and can be accessed with getData().get().getRegion()
 	private void draw() {
-		// Prepare the data which is shown
-		//TODO: Function, which get the right data form the list.
+		if (getData() != null) {
 
-		if(getData()!=null){
-			
 			DataTable dataTable = DataTable.create();
 			dataTable.addColumn(ColumnType.STRING, "City");
 			dataTable.addColumn(ColumnType.NUMBER, "Temperature");
-			
+
 			dataTable.addRows(getData().size());
-			for(int i = 0; i<getData().size(); i++){
-				
-				dataTable.setValue(i,0,getData().get(i).getRegion());
-				dataTable.setValue(i, 1,getData().get(i).getAverageTemperature());
-				
+			for (int i = 0; i < getData().size(); i++) {
+
+				dataTable.setValue(i, 0, getData().get(i).getRegion());
+				dataTable.setValue(i, 1, getData().get(i).getAverageTemperature());
+
 				GWT.log(getData().get(i).getRegion());
-				
 			}
-			geoChart.draw(dataTable, getGeoChartOptions());			
+			geoChart.draw(dataTable, getGeoChartOptions());
 		}
-		
 	}
 
-	// Set Style Option for Geocart 											TODO: Size of the markers
+	
+	// Set Style Option for Geocart TODO: Size of the markers
 	private GeoChartOptions getGeoChartOptions() {
 		GeoChartOptions options = GeoChartOptions.create();
 		options.setDisplayMode(DisplayMode.MARKERS);
 		GeoChartColorAxis geoChartColorAxis = GeoChartColorAxis.create();
-		geoChartColorAxis.setColors("0000FF", "5858FA", "A9A9F5", "F7819F", "FE2E64", "FF0040");
+		geoChartColorAxis.setColors("0000FF", "5858FA", "A9A9F5", "F7819F","FE2E64", "FF0040");
 		options.setColorAxis(geoChartColorAxis);
 		options.setDatalessRegionColor("#373737");
 		return options;
 
 	}
-	
+
+	// Methode witch asks for data from the DataServiceImpl class and then start
+	// the drwing of the map
 	@Override
 	public void fetchData() {
-  	//how to handle the Antwort vom Server
-  	    AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
+
+		AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
 
 			@Override
 			public void onSuccess(ArrayList<DataPoint> result) {
@@ -95,14 +95,10 @@ public class MapView extends DataView {
 			@Override
 			public void onFailure(Throwable caught) {
 				// TODO Do something
-				
 			}
-			
-  	    };
+		};
 
-  	    //call to server
-  	    getDataService().getData(callback);
-		
+		// call to server
+		getDataService().getData(callback);
 	}
-
 }
