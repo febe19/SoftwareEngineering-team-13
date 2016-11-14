@@ -46,11 +46,11 @@ public class SelectionPanel extends Composite {
 	private Slider yearSlider = new Slider();
 	private RangeSlider tempSlider = new RangeSlider();
 	private Slider uncertainitySlider = new Slider();
-	private ToggleButton showUncertainity = new ToggleButton("Show uncertain Data -- ToggleButton");
+//	private ToggleButton showUncertainity = new ToggleButton("Show uncertain Data -- ToggleButton");
 	
 
-	private Button exportButton = new Button("Export");
-	private Button resetButton = new Button("Reset Selection");
+	//private Button exportButton = new Button("Export");
+	//private Button resetButton = new Button("Reset Selection");
 	private Anchor source = new Anchor("Raw data is from Berkeley Earth.", false, "http://www.berkeleyearth.org");
 
 	public SelectionPanel() {
@@ -60,48 +60,48 @@ public class SelectionPanel extends Composite {
 
 	private void initContent() {
 		// Shows Content in MainPanel
-		Label infoLabel = new Label("Select the data you want to see:");
-		infoLabel.setStyleName("gwt-FilterLabelInfo");
+//		Label infoLabel = new Label("Select the data you want to see:");
+//			infoLabel.setStyleName("gwt-FilterLabelInfo");
 		fillHorizontalPanel();
-		mainPanel.addNorth(infoLabel, 2);
+//		mainPanel.addNorth(infoLabel, 2);
 		mainPanel.addWest(criteriaPanel, 25);
 		mainPanel.addWest(sliderPanel, 100);
 		mainPanel.addEast(buttonPanel, 20);
 
 		// Action When reset Button is clicked
-		resetButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent clickEvent) {
-				// TODO ResetFilter
-			}
-		});
+//		resetButton.addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(ClickEvent clickEvent) {
+//				// TODO ResetFilter
+//			}
+//		});
 
 		// Action when exportButton is clicked
-		exportButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent clickEvent) {
-				// TODO open Export Function
-			}
-		});
+//		exportButton.addClickHandler(new ClickHandler() {
+//			@Override
+//			public void onClick(ClickEvent clickEvent) {
+//				// TODO open Export Function
+//			}
+//		});
 		
 		// Action when Enter is pressed after text input
-		countryIN.addKeyDownHandler(new KeyDownHandler() {
-            @Override
-            public void onKeyDown(KeyDownEvent keyDownEvent) {
-                if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-                   // TODO reload data with filter criteria included
-                }
-            }
-        });
-		// Action when Enter is pressed after text input
-		cityIN.addKeyDownHandler(new KeyDownHandler() {
-            @Override
-            public void onKeyDown(KeyDownEvent keyDownEvent) {
-                if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-                   // TODO reload data with filter criteria included
-                }
-            }
-        });
+//		countryIN.addKeyDownHandler(new KeyDownHandler() {
+//            @Override
+//            public void onKeyDown(KeyDownEvent keyDownEvent) {
+//                if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+//                   // TODO reload data with filter criteria included
+//                }
+//            }
+//        });
+//		// Action when Enter is pressed after text input
+//		cityIN.addKeyDownHandler(new KeyDownHandler() {
+//            @Override
+//            public void onKeyDown(KeyDownEvent keyDownEvent) {
+//                if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+//                   // TODO reload data with filter criteria included
+//                }
+//            }
+//        });
 		
 		
 	//TODO slider Input 
@@ -109,17 +109,17 @@ public class SelectionPanel extends Composite {
 	}
 
 	private void fillHorizontalPanel() {
-		// Add country & City Label and textImput to selectionPanel - left side.
-		country.addStyleName("gwt-FilterLabel");
-		city.addStyleName("gwt-FilterLabel");
-		countryIN.addStyleName("gwt-FilterTextInput");
-		cityIN.addStyleName("gwt-FilterTextInput");
-		countryPanel.add(country);
-		countryPanel.add(countryIN);
-		criteriaPanel.add(countryPanel);
-		cityPanel.add(city);
-		cityPanel.add(cityIN);
-		criteriaPanel.add(cityPanel);
+//		// Add country & City Label and textImput to selectionPanel - left side.
+//		country.addStyleName("gwt-FilterLabel");
+//		city.addStyleName("gwt-FilterLabel");
+//		countryIN.addStyleName("gwt-FilterTextInput");
+//		cityIN.addStyleName("gwt-FilterTextInput");
+//		countryPanel.add(country);
+//		countryPanel.add(countryIN);
+//		criteriaPanel.add(countryPanel);
+//		cityPanel.add(city);
+//		cityPanel.add(cityIN);
+//		criteriaPanel.add(cityPanel);
 
 		// Add Slider Panel to selectionPanel - middle.
 		initStyleForSlider();
@@ -129,26 +129,26 @@ public class SelectionPanel extends Composite {
 		tempPanel.add(tempSlider);
 		uncertainityPanel.add(uncertainity);
 		uncertainitySliderAndToggle.add(uncertainitySlider);
-		uncertainitySliderAndToggle.add(showUncertainity);
+//		uncertainitySliderAndToggle.add(showUncertainity);
 		uncertainityPanel.add(uncertainitySliderAndToggle);
 		sliderPanel.add(yearPanel);
 		sliderPanel.add(tempPanel);
 		sliderPanel.add(uncertainityPanel);
 
-		initButtonStile();
-		buttonPanel.add(exportButton);
-		buttonPanel.add(resetButton);
+//		initButtonStile();
+//		buttonPanel.add(exportButton);
+//		buttonPanel.add(resetButton);
 		buttonPanel.add(source);
 
 	}
 
 	// Reset And Export Button Style
-	private void initButtonStile() {
-		exportButton.setStyleName("gwt-SelectionButton");
-		resetButton.setStyleName("gwt-SelectionButton");
-		exportButton.setWidth("200px");
-		resetButton.setWidth("200px");
-	}
+//	private void initButtonStile() {
+//		exportButton.setStyleName("gwt-SelectionButton");
+//		resetButton.setStyleName("gwt-SelectionButton");
+//		exportButton.setWidth("200px");
+//		resetButton.setWidth("200px");
+//	}
 
 	// Slider Style
 	private void initStyleForSlider() {
