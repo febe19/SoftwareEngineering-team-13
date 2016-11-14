@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='softwareengineering_team_13'>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+	<inherits name='com.googlecode.gwt.charts.Charts' />
+
+	<inherits name='org.gwtbootstrap3.GwtBootstrap3' />
+	<inherits name='org.gwtbootstrap3.GwtBootstrap3Theme' />
+	<inherits name="org.gwtbootstrap3.extras.slider.Slider"/>
+	<inherits name="org.gwtbootstrap3.extras.slider.Slider"/>
+	
+	<!-- Specify the app entry point class. -->
+	<entry-point class='sofwareengineering.team.thirteen.gwt.webapp.client.WebApp' />
+ 
+	<source path="client"/>
+	<source path="shared"/>
+</module>

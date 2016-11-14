@@ -1,5 +1,7 @@
 package sofwareengineering.team.thirteen.gwt.webapp.shared;
 
+import java.sql.Date;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class DataPoint implements IsSerializable{
@@ -7,15 +9,23 @@ public class DataPoint implements IsSerializable{
 	private int id;
 	private int year;
 	private int month;
+	public int getMonth() {
+		return month;
+	}
+	public void setMonth(int month) {
+		this.month = month;
+	}
 	private String region;
 	private String country;
 	private String latitude;
 	private String longitude;
 	private double averageTemperature;
 	private double uncertainity;
+	private Date date;
 	
 /*Empty constructor needed for serialization*/
 public DataPoint(){}
+
 public DataPoint(int id, int year, int month,String region, String country, String latitude, String longitude, double averageTemperature,
 		double uncertainity) {
 		super();
@@ -78,5 +88,11 @@ public DataPoint(int id, int year, int month,String region, String country, Stri
 	}
 	public void setRegion(String region) {
 		this.region = region;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }

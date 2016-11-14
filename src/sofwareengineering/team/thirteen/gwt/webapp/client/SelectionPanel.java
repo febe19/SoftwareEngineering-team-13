@@ -84,21 +84,21 @@ public class SelectionPanel extends Composite {
 			}
 		});
 		
-		// Action when Enter is pressed after textinput
+		// Action when Enter is pressed after text input
 		countryIN.addKeyDownHandler(new KeyDownHandler() {
             @Override
             public void onKeyDown(KeyDownEvent keyDownEvent) {
                 if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-                   // TODO reload data with filtercriteria includet
+                   // TODO reload data with filter criteria included
                 }
             }
         });
-		// Action when Enter is pressed after textinput
+		// Action when Enter is pressed after text input
 		cityIN.addKeyDownHandler(new KeyDownHandler() {
             @Override
             public void onKeyDown(KeyDownEvent keyDownEvent) {
                 if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-                   // TODO reload data with filtercriteria includet
+                   // TODO reload data with filter criteria included
                 }
             }
         });

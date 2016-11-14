@@ -60,14 +60,14 @@ public class MapView extends DataView {
 				dataTable.setValue(i, 0, getData().get(i).getRegion());
 				dataTable.setValue(i, 1, getData().get(i).getAverageTemperature());
 
-				GWT.log(getData().get(i).getRegion());
+//				GWT.log(getData().get(i).getRegion());
 			}
 			geoChart.draw(dataTable, getGeoChartOptions());
 		}
 	}
 
 	
-	// Set Style Option for Geocart TODO: Size of the markers
+	// Set Style Option for Geochart TODO: Size of the markers
 	private GeoChartOptions getGeoChartOptions() {
 		GeoChartOptions options = GeoChartOptions.create();
 		options.setDisplayMode(DisplayMode.MARKERS);
@@ -79,11 +79,10 @@ public class MapView extends DataView {
 
 	}
 
-	// Methode witch asks for data from the DataServiceImpl class and then start
-	// the drwing of the map
+	// Method which asks for data from the DataServiceImpl class and then start
+	// the drawing of the map
 	@Override
 	public void fetchData() {
-
 		AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
 
 			@Override
