@@ -6,7 +6,7 @@
 
 	<!-- Default page to serve -->
 	<welcome-file-list>
-		<welcome-file>SoftwareEngineering_team_13.htm</welcome-file>
+		<welcome-file>SoftwareEngineering_team_13.html</welcome-file>
 	</welcome-file-list>
 	
 	<!-- Servlets -->

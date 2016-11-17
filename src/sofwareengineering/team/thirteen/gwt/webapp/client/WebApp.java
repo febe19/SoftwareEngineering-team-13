@@ -29,7 +29,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		selectionPanel.setStyleName("gwt-SelectionPanel");
 		mapView.setStyleName("gwt-TabPanel");
 		
-		//Add tabPanle to north and selectionpanel to south
+		//Add tabPanle to north and selection panel to south
 		addNorth(menu,35);
 		addSouth(selectionPanel, 15);
 	}

@@ -36,7 +36,7 @@ public class SelectionPanel extends Composite {
 	private VerticalPanel buttonPanel = new VerticalPanel();
 
 	private Label country = new Label("Country");
-	private TextBox countryIN = new TextBox();
+	private TextBox countryIN = new TextBox();		//TODO check for suggestion panel 
 	private Label city = new Label("City");
 	private TextBox cityIN = new TextBox();
 
@@ -47,6 +47,7 @@ public class SelectionPanel extends Composite {
 	private RangeSlider tempSlider = new RangeSlider();
 	private Slider uncertainitySlider = new Slider();
 	private ToggleButton showUncertainity = new ToggleButton("Show uncertain Data -- ToggleButton");
+	
 
 	private Button exportButton = new Button("Export");
 	private Button resetButton = new Button("Reset Selection");
@@ -60,7 +61,7 @@ public class SelectionPanel extends Composite {
 	private void initContent() {
 		// Shows Content in MainPanel
 		Label infoLabel = new Label("Select the data you want to see:");
-		infoLabel.setStyleName("gwt-FilterLabelInfo");
+			infoLabel.setStyleName("gwt-FilterLabelInfo");
 		fillHorizontalPanel();
 		mainPanel.addNorth(infoLabel, 2);
 		mainPanel.addWest(criteriaPanel, 25);
@@ -83,21 +84,21 @@ public class SelectionPanel extends Composite {
 			}
 		});
 		
-		// Action when Enter is pressed after textinput
+		// Action when Enter is pressed after text input
 		countryIN.addKeyDownHandler(new KeyDownHandler() {
             @Override
             public void onKeyDown(KeyDownEvent keyDownEvent) {
                 if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-                   // TODO reload data with filtercriteria includet
+                   // TODO reload data with filter criteria included
                 }
             }
         });
-		// Action when Enter is pressed after textinput
+		// Action when Enter is pressed after text input
 		cityIN.addKeyDownHandler(new KeyDownHandler() {
             @Override
             public void onKeyDown(KeyDownEvent keyDownEvent) {
                 if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-                   // TODO reload data with filtercriteria includet
+                   // TODO reload data with filter criteria included
                 }
             }
         });

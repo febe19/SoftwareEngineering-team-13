@@ -35,7 +35,7 @@
 
 .menu {
 	color: #ffffff;
-	font-weight: italic;
+	font-weight: bold;
 }
 
 .content {
@@ -96,6 +96,7 @@
 .Slider{
 	margin-left: 15px;
 }
+
 
 .gwt-FilterLabelInfo {
 	-webkit-box-sizing: content-box;

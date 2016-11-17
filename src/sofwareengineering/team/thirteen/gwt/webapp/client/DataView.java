@@ -9,6 +9,15 @@ import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
 
 public abstract class DataView extends Composite{
 	private List<DataPoint> data;
+	private List<DataPoint> TableData;
+	public List<DataPoint> getTableData() {
+		return TableData;
+	}
+
+	public void setTableData(List<DataPoint> tabledata) {
+		TableData = tabledata;
+	}
+
 	private DataServiceAsync dataService = GWT.create(DataService.class);
 	
 	public abstract void fetchData();

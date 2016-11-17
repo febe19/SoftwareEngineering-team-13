@@ -38,7 +38,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
     private String prodDriver = "com.mysql.jdbc.GoogleDriver";
     public DataServiceImpl(){}
 
-    private Connection getConnection(){
+    public Connection getConnection(){
         
         Connection conn = null;
 
@@ -74,6 +74,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		
 		ArrayList<DataPoint> data = new ArrayList();
 		
+		
 		try {
 			statement = connection.prepareStatement("SELECT * FROM `temperature-data`");
 			result = statement.executeQuery();
@@ -83,12 +84,11 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 				double temp = result.getDouble("Temperature");
 				String city = result.getString("City");
 				String country = result.getString("Country");
-				
 				DataPoint p = new DataPoint();
 				p.setAverageTemperature(temp);
 				p.setRegion(city);
 				p.setCountry(country);
-				
+
 				data.add(p);		
             }
 			
@@ -120,10 +120,12 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 				
 				double temp = result.getDouble("t");
 				String city = result.getString("City");
+				int yearPoint = year;
 				
 				DataPoint p = new DataPoint();
 				p.setAverageTemperature(temp);
 				p.setRegion(city);
+				p.setYear(year);
 				
 				data.add(p);	
             }
@@ -135,7 +137,45 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		return data;
 	}
 	
-	
+	public ArrayList<DataPoint> getTableData() {
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		ResultSet result;
+		
+		ArrayList<DataPoint> data = new ArrayList<>();
+		
+		String query = 
+				"SELECT * "
+				+"FROM `temperature-data` "
+				+ "WHERE Year(Date) = '2011'";
+		
+		try {
+			statement = connection.prepareStatement(query);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				
+				String country = result.getString("Country");
+				String city = result.getString("City");
+				double temp = result.getDouble("Temperature");
+				double uncertainity = result.getDouble("Uncertainty");
+				Date date = result.getDate("Date");
+				DataPoint p = new DataPoint();
+				p.setCountry(country);
+				p.setRegion(city);
+				p.setAverageTemperature(temp);
+				p.setUncertainity(uncertainity);
+				p.setDate(date);
+				
+				data.add(p);		
+            }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return data;
+	}
 	
 	
 

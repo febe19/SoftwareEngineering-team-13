@@ -10,4 +10,5 @@ import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
 public interface DataServiceAsync {
 	void getData(AsyncCallback<ArrayList<DataPoint>> callback);
 	void getMapData(int year, AsyncCallback<ArrayList<DataPoint>> callback);
+	void getTableData(AsyncCallback<ArrayList<DataPoint>> callback);
 }
