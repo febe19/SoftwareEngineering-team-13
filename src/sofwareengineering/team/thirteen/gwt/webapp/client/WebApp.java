@@ -1,5 +1,8 @@
 package sofwareengineering.team.thirteen.gwt.webapp.client;
 
+import org.gwtbootstrap3.extras.slider.client.ui.base.event.SlideStopEvent;
+import org.gwtbootstrap3.extras.slider.client.ui.base.event.SlideStopHandler;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -32,6 +35,14 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		//Add tabPanle to north and selection panel to south
 		addNorth(menu,35);
 		addSouth(selectionPanel, 15);
+		selectionPanel.getYearSlider().addSlideStopHandler(new SlideStopHandler<Double>(){
+			public void onSlideStop(SlideStopEvent<Double> event){
+				mapView.setCurrentYear(Integer.parseInt(String.valueOf(selectionPanel.getYearSlider().getValue())));
+				tableView.setCurrentYear(Integer.parseInt(String.valueOf(selectionPanel.getYearSlider().getValue())));
+				mapView.fetchData();
+				tableView.fetchData();
+			}
+		});
 	}
 	
 	

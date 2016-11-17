@@ -23,6 +23,7 @@ public class MapView extends DataView {
 
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.PX);
 	private GeoChart geoChart;
+	private int currentYear=2013;
 	// private Logger l = new Logger("MapViewLog");
 
 	// Create the MapView
@@ -80,7 +81,10 @@ public class MapView extends DataView {
 
 	// Method which asks for data from the DataServiceImpl class and then start
 	// the drawing of the map
-	@Override
+	public void setCurrentYear(int year){
+		currentYear=year;
+	}
+	
 	public void fetchData() {
 		AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
 
@@ -97,6 +101,6 @@ public class MapView extends DataView {
 		};
 
 		// call to server
-		getDataService().getMapData(2011,callback);
+		getDataService().getMapData(currentYear,callback);
 	}
 }

@@ -47,7 +47,7 @@ public class DataServiceImplTest extends GWTTestCase {
 	}
 	
 	public void testGetTableData(){
-		ArrayList<DataPoint> ArrayTableDataTest = dataTest.getTableData();
+		ArrayList<DataPoint> ArrayTableDataTest = dataTest.getTableData(2011);
 		DataPoint pointTest = ArrayTableDataTest.get(0);
 		assertEquals("Abidjan",pointTest.getRegion());
 		assertEquals(27.36, pointTest.getAverageTemperature());

@@ -36,11 +36,15 @@ public class TableView extends DataView {
 
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.EM);
 	private CellTable<DataPoint> dataTable = new CellTable<DataPoint>();
+	private int currentYear=2013;
 	// Create the MapViewMainPanel
 	public TableView() {
 		fetchData();
 		initWidget(mainPanel);
 
+	}
+	public void setCurrentYear(int year){
+		currentYear=year;
 	}
 	// Fill the Main Panel with Stuff
 	private void initContent() {
@@ -159,12 +163,11 @@ public class TableView extends DataView {
 	        dataTable.addColumnSortHandler(columnSortHandler);
 //	        dataTable.setPageSize(50);
 	        dataTable.setVisibleRange(0,list.size());
-	        GWT.log(String.valueOf(dataTable.getVisibleItemCount()));
-	        GWT.log(String.valueOf(list.size()));
 	        // We know that the data is sorted alphabetically by default.
 	        //Not sure what it does or if we really need it
 	        //dataTable.getColumnSortList().push(dataTable.getColumn(2));
 	        ScrollPanel scrollPanel = new ScrollPanel(dataTable);
+	        scrollPanel.setAlwaysShowScrollBars(true);
 		mainPanel.add(scrollPanel);
 		
 	}
@@ -245,6 +248,6 @@ public class TableView extends DataView {
 			}
 		};
 		// call to server
-		getDataService().getTableData(callback);
+		getDataService().getTableData(currentYear,callback);
 	}
 }

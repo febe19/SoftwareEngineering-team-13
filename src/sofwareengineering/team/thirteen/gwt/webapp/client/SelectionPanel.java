@@ -57,6 +57,10 @@ public class SelectionPanel extends Composite {
 		initWidget(mainPanel);
 		initContent();
 	}
+	
+	public Slider getYearSlider(){
+		return yearSlider;
+	}
 
 	private void initContent() {
 		// Shows Content in MainPanel
@@ -67,6 +71,7 @@ public class SelectionPanel extends Composite {
 		mainPanel.addWest(criteriaPanel, 25);
 		mainPanel.addWest(sliderPanel, 100);
 		mainPanel.addEast(buttonPanel, 20);
+		//Action when slider is moved
 
 		// Action When reset Button is clicked
 		resetButton.addClickHandler(new ClickHandler() {

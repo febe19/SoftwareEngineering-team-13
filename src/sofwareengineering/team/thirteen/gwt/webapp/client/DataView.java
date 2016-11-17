@@ -10,6 +10,7 @@ import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
 public abstract class DataView extends Composite{
 	private List<DataPoint> data;
 	private List<DataPoint> TableData;
+	
 	public List<DataPoint> getTableData() {
 		return TableData;
 	}

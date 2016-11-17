@@ -12,6 +12,6 @@ import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
 public interface DataService extends RemoteService{
 	ArrayList<DataPoint> getData();
 	ArrayList<DataPoint> getMapData(int year);
-	ArrayList<DataPoint> getTableData();
+	ArrayList<DataPoint> getTableData(int year);
 
 }

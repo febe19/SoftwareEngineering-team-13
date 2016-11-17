@@ -137,7 +137,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		return data;
 	}
 	
-	public ArrayList<DataPoint> getTableData() {
+	public ArrayList<DataPoint> getTableData(int year) {
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		ResultSet result;
@@ -147,7 +147,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		String query = 
 				"SELECT * "
 				+"FROM `temperature-data` "
-				+ "WHERE Year(Date) = '2011'";
+				+ "WHERE Year(Date) ="+ year;
 		
 		try {
 			statement = connection.prepareStatement(query);
@@ -176,7 +176,4 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		
 		return data;
 	}
-	
-	
-
 }
