@@ -24,13 +24,59 @@ public class MapView extends DataView {
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.PX);
 	private GeoChart geoChart;
 	private int currentYear=2013;
+	private double maxTemperature=100;
+	private double minTemperature=-100;
+	private double uncertainity=5;
+	private String city="city";
+	private String country="country";
 	// private Logger l = new Logger("MapViewLog");
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public double getUncertainity() {
+		return uncertainity;
+	}
+
+	public void setUncertainity(double uncertainity) {
+		this.uncertainity = uncertainity;
+	}
 
 	// Create the MapView
 	public MapView() {
 		initWidget(mainPanel);
 		initContent();
 	}
+
+	public double getMaxTemperature() {
+		return maxTemperature;
+	}
+
+	public void setMaxTemperature(double maxTemperature) {
+		this.maxTemperature = maxTemperature;
+	}
+
+	public double getMinTemperature() {
+		return minTemperature;
+	}
+
+	public void setMinTemperature(double minTemperature) {
+		this.minTemperature = minTemperature;
+	}
+
 
 	private void initContent() {
 		ChartLoader chartLoader = new ChartLoader(ChartPackage.GEOCHART);
@@ -74,7 +120,7 @@ public class MapView extends DataView {
 		GeoChartColorAxis geoChartColorAxis = GeoChartColorAxis.create();
 		geoChartColorAxis.setColors("0000FF", "5858FA", "A9A9F5", "F7819F","FE2E64", "FF0040");
 		options.setColorAxis(geoChartColorAxis);
-		options.setDatalessRegionColor("#373737");
+		options.setDatalessRegionColor("#858585");
 		return options;
 
 	}
@@ -101,6 +147,7 @@ public class MapView extends DataView {
 		};
 
 		// call to server
-		getDataService().getMapData(currentYear,callback);
+		getDataService().getMapData(currentYear,minTemperature,maxTemperature,uncertainity,city,country,callback);
 	}
 }
+

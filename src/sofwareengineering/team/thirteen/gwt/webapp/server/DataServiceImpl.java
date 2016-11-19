@@ -99,7 +99,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		return data;
 	}
 	
-	public ArrayList<DataPoint> getMapData(int year) {
+	public ArrayList<DataPoint> getMapData(int year,double minTemperature, double maxTemperature,
+			double uncertainity, String selectedCity, String selectedCountry) {
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		ResultSet result;
@@ -107,10 +108,10 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		ArrayList<DataPoint> data = new ArrayList();
 		
 		String query = 
-				  "SELECT YEAR(Date), City, AVG(Temperature) AS t FROM `temperature-data` "
-				+ "WHERE YEAR(DATE) = ? "
-				+ "GROUP BY City, YEAR(DATE)";
-		
+				"SELECT YEAR(Date), City, AVG(Temperature) AS t FROM `temperature-data` "
+						+ "WHERE YEAR(DATE) = ? AND Temperature >="+minTemperature+" AND Temperature <="+maxTemperature
+						+" AND Uncertainty <=" + uncertainity+" AND City="+selectedCity+" AND Country="+selectedCountry
+						+ " GROUP BY City, YEAR(DATE)";
 		try {
 			statement = connection.prepareStatement(query);
 			statement.setInt(1, year);

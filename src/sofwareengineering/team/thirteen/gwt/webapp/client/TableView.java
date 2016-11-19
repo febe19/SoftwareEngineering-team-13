@@ -37,6 +37,14 @@ public class TableView extends DataView {
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.EM);
 	private CellTable<DataPoint> dataTable = new CellTable<DataPoint>();
 	private int currentYear=2013;
+	private double uncertainity=5;
+	private double checkboxUncertainity = 5;
+	public double getUncertainity() {
+		return uncertainity;
+	}
+	public void setUncertainity(double uncertainity) {
+		this.uncertainity = uncertainity;
+	}
 	// Create the MapViewMainPanel
 	public TableView() {
 		fetchData();
