@@ -96,7 +96,11 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 			@Override
 			public void onKeyDown(KeyDownEvent keyDownEvent) {
 				if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+					if(selectionPanel.getCityIN().getValue()==""){
+						mapView.setCity("city");
+					}else{
 					mapView.setCity("\""+selectionPanel.getCityIN().getValue().toString()+"\"");
+					}
 					mapView.fetchData();
 				}
 			}
@@ -107,7 +111,11 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 			@Override
 			public void onKeyDown(KeyDownEvent keyDownEvent) {
 				if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+					if(selectionPanel.getCountryIN().getValue()==""){
+						mapView.setCountry("country");
+					}else{
 					mapView.setCountry("\""+selectionPanel.getCountryIN().getValue().toString()+"\"");
+					}
 					mapView.fetchData();
 				}
 			}
