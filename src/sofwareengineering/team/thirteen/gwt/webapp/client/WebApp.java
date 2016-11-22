@@ -59,6 +59,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				mapView.setMaxTemperature(selectionPanel.getTempSlider().getValue().getMaxValue());
 				mapView.setMinTemperature(selectionPanel.getTempSlider().getValue().getMinValue());
 				mapView.fetchData();
+				tableView.fetchData();
 			}
 			
 		});
@@ -70,6 +71,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				mapView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
 				tableView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
 				mapView.fetchData();
+				tableView.fetchData();
 				
 			}
 			
@@ -81,9 +83,11 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				if (checked) {
 					mapView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
 					mapView.fetchData();
+					tableView.fetchData();
 				} else {
 					mapView.setUncertainity(5);
 					mapView.fetchData();
+					tableView.fetchData();
 				}
 				//mainPanel.clear();
 				// initContent();
@@ -98,10 +102,12 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 					if(selectionPanel.getCityIN().getValue()==""){
 						mapView.setCity("city");
+						tableView.fetchData();
 					}else{
 					mapView.setCity("\""+selectionPanel.getCityIN().getValue().toString()+"\"");
 					}
 					mapView.fetchData();
+					tableView.fetchData();
 				}
 			}
 		});
@@ -117,6 +123,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 					mapView.setCountry("\""+selectionPanel.getCountryIN().getValue().toString()+"\"");
 					}
 					mapView.fetchData();
+					tableView.fetchData();
 				}
 			}
 			
@@ -131,6 +138,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				mapView.setCity("city");
 				mapView.setCountry("country");
 				mapView.fetchData();
+				tableView.fetchData();
 			}
 		});
 	}

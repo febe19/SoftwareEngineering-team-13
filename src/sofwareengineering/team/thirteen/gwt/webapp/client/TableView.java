@@ -26,6 +26,7 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.view.client.ListDataProvider;
@@ -39,6 +40,9 @@ public class TableView extends DataView {
 	private int currentYear=2013;
 	private double uncertainity=5;
 	private double checkboxUncertainity = 5;
+		private boolean firstTime=true;
+	    ScrollPanel scrollPanel = new ScrollPanel(dataTable);
+
 	public double getUncertainity() {
 		return uncertainity;
 	}
@@ -59,8 +63,10 @@ public class TableView extends DataView {
 		
 		// Check if Table is Empty
 		dataTable.setEmptyTableWidget(new Label("No data found"));
-		initTableColumns();
-		
+		if(firstTime){
+			firstTime=false;
+			initTableColumns();
+		}
 		ListDataProvider<DataPoint> dataProvider = new ListDataProvider<DataPoint>();
 		dataProvider.addDataDisplay(dataTable);
 		List<DataPoint> list = dataProvider.getList();
@@ -174,9 +180,8 @@ public class TableView extends DataView {
 	        // We know that the data is sorted alphabetically by default.
 	        //Not sure what it does or if we really need it
 	        //dataTable.getColumnSortList().push(dataTable.getColumn(2));
-	        ScrollPanel scrollPanel = new ScrollPanel(dataTable);
 	        scrollPanel.setAlwaysShowScrollBars(true);
-		mainPanel.add(scrollPanel);
+	        mainPanel.add(scrollPanel);
 		
 	}
 
@@ -245,8 +250,8 @@ public class TableView extends DataView {
 			@Override
 			public void onSuccess(ArrayList<DataPoint> result) {
 				setData(result);
-				initContent();
-				
+
+				initContent();		
 			}
 
 			@Override
