@@ -222,15 +222,15 @@ public class SelectionPanel extends Composite {
 		yearSlider.setMax(2013);
 		yearSlider.setWidth("700px");
 
-		tempSlider.setMin(-10);
-		tempSlider.setMax(60);
+		tempSlider.setMin(-30);
+		tempSlider.setMax(40);
 		tempSlider.setStep(0.5);
 		tempSlider.setWidth("700px");
 
 		uncertainitySlider.setMin(0);
-		uncertainitySlider.setMax(3);
+		uncertainitySlider.setMax(15);
 		uncertainitySlider.setStep(0.05);
-		uncertainitySlider.setWidth("200px");
+		uncertainitySlider.setWidth("500px");
 	}
 	
 

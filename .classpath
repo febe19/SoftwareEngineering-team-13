@@ -8,8 +8,5 @@
 	<classpathentry exported="true" kind="lib" path="gwtbootstrap3-extras-0.9.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="gwt-charts-0.9.10.jar"/>
 	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/mysql-connector-java-5.1.40-bin.jar"/>
-	<classpathentry kind="lib" path="/Users/ilecipi/Dropbox/UZH/3. Semester/Workspace/SoftwareEngineering-team-13/war/WEB-INF/lib/appengine-api-labs.jar"/>
-	<classpathentry kind="lib" path="/Users/ilecipi/Dropbox/UZH/3. Semester/Workspace/SoftwareEngineering-team-13/war/WEB-INF/lib/appengine-endpoints-deps.jar"/>
-	<classpathentry kind="lib" path="/Users/ilecipi/Dropbox/UZH/3. Semester/Workspace/SoftwareEngineering-team-13/war/WEB-INF/lib/appengine-endpoints.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

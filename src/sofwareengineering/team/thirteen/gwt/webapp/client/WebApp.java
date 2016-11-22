@@ -42,7 +42,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		mapView.setStyleName("gwt-TabPanel");
 		
 		//Add tabPanle to north and selection panel to south
-		addNorth(menu,35);
+		addNorth(menu,40);
 		addSouth(selectionPanel, 15);
 		
 		//Get the value from the slider when it stops moving
@@ -105,7 +105,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 					//When the checkbox is not ticked, all the temperature have to be displayed
 					//therefore we set the uncertainty level to 5 or a value bigger than every 
 					//possible uncertainty
-					mapView.setUncertainity(5);
+					mapView.setUncertainity(0);
 					mapView.fetchData();
 					tableView.fetchData();
 				}

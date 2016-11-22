@@ -18,6 +18,7 @@ import com.googlecode.gwt.charts.client.geochart.GeoChartOptions;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.Label;
 
 public class MapView extends DataView {
 
@@ -32,6 +33,7 @@ public class MapView extends DataView {
 	//all the cities and countries will be shown
 	private String city="city";
 	private String country="country";
+	private Label yearLabel = new Label(""+currentYear);
 
 	public String getCountry() {
 		return country;
@@ -81,6 +83,7 @@ public class MapView extends DataView {
 
 
 	private void initContent() {
+		yearLabel.addStyleName("gwt-YearLabel");
 		ChartLoader chartLoader = new ChartLoader(ChartPackage.GEOCHART);
 		chartLoader.loadApi(new Runnable() {
 
@@ -88,7 +91,8 @@ public class MapView extends DataView {
 			public void run() {
 				// Create and attach the chart
 				geoChart = new GeoChart();
-				mainPanel.add(geoChart);
+				mainPanel.addWest(geoChart, 1200);
+				mainPanel.addEast(yearLabel, 200);
 				fetchData();
 			}
 		});
@@ -110,6 +114,7 @@ public class MapView extends DataView {
 				dataTable.setValue(i, 1, getData().get(i).getAverageTemperature());
 
 			}
+			yearLabel.setText(""+currentYear);
 			geoChart.draw(dataTable, getGeoChartOptions());
 		}
 	}

@@ -6,6 +6,18 @@
 	padding: 30px;
 }
 
+.gwt-YearLabel {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	border: none;
+	font: normal 50px/1 Verdana, Geneva, sans-serif;
+	color: #858585;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+
+}
+
 .gwt-TabLayoutPanelTab {
 	display: inline-block;
 	-webkit-box-sizing: content-box;
@@ -50,10 +62,6 @@
 
 .gwt-SelectionPanel {
 	border-Top: 5px solid rgba(255, 97, 0, 1);
-}
-
-.gwt-TabPanel {
-	background: blue;
 }
 
 .gwt-FilterLabel {
