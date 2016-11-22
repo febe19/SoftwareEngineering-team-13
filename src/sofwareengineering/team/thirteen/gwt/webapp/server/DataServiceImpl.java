@@ -109,12 +109,15 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		
 		String query = 
 				"SELECT YEAR(Date), City, AVG(Temperature) AS t FROM `temperature-data` "
-						+ "WHERE YEAR(DATE) = ? AND Temperature >="+minTemperature+" AND Temperature <="+maxTemperature
-						+" AND Uncertainty <=" + uncertainity+" AND City="+selectedCity+" AND Country="+selectedCountry
-						+ " GROUP BY City, YEAR(DATE)";
+						+ "WHERE YEAR(DATE) ="+year+" "
+						+ "AND Temperature >="+minTemperature+" "
+						+ "AND Temperature <="+maxTemperature+" "
+						+ "AND Uncertainty <=" + uncertainity+" "
+						+ "AND City="+selectedCity+" "
+						+ "AND Country="+selectedCountry+" "
+						+ "GROUP BY City, YEAR(DATE)";
 		try {
 			statement = connection.prepareStatement(query);
-			statement.setInt(1, year);
 			result = statement.executeQuery();
 			
 			while (result.next()) {

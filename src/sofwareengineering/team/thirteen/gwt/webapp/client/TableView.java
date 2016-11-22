@@ -40,33 +40,30 @@ public class TableView extends DataView {
 	private int currentYear=2013;
 	private double uncertainity=5;
 	private double checkboxUncertainity = 5;
-		private boolean firstTime=true;
-	    ScrollPanel scrollPanel = new ScrollPanel(dataTable);
+	//important for updating the table
+	private boolean firstTime=true;
+	ScrollPanel scrollPanel = new ScrollPanel(dataTable);
 
-	public double getUncertainity() {
-		return uncertainity;
-	}
-	public void setUncertainity(double uncertainity) {
-		this.uncertainity = uncertainity;
-	}
+
 	// Create the MapViewMainPanel
 	public TableView() {
 		fetchData();
 		initWidget(mainPanel);
 
 	}
-	public void setCurrentYear(int year){
-		currentYear=year;
-	}
 	// Fill the Main Panel with Stuff
 	private void initContent() {
 		
 		// Check if Table is Empty
 		dataTable.setEmptyTableWidget(new Label("No data found"));
+		
+		//Instantiate the columns only once and not each time
 		if(firstTime){
 			firstTime=false;
 			initTableColumns();
 		}
+		
+		//Add data to the table
 		ListDataProvider<DataPoint> dataProvider = new ListDataProvider<DataPoint>();
 		dataProvider.addDataDisplay(dataTable);
 		List<DataPoint> list = dataProvider.getList();
@@ -111,19 +108,17 @@ public class TableView extends DataView {
 	                	Double obj1 = new Double(o1.getUncertainity());
 	                    Double obj2 = new Double(o2.getUncertainity());
 	                    if(o2!=null){
-	                    	//GWT.log(String.valueOf(obj1.compareTo(obj2)));
 	                    	return obj1.compareTo(obj2);
 	                    }else{
 	                    	return 1;
 	                    }
-	                 // return (o2 != null) ? obj1.compareTo(obj2) : 1;
 	                }
 	                return -1;
 	              }
 	            });
 	        dataTable.addColumnSortHandler(columnSortHandler);
 	        
-	      //Country Sort (NOT YET IMPLEMENTED)
+	      //Country Sort
 		    columnSortHandler.setComparator(dataTable.getColumn(0),
 		            new Comparator<DataPoint>() {
 		              public int compare(DataPoint o1, DataPoint o2) {
@@ -133,8 +128,6 @@ public class TableView extends DataView {
 
 		                // Compare the name columns.
 		                if (o1 != null) {
-//		                	Double obj1 = new Double(o1.getCountry());
-//		                    Double obj2 = new Double(o2.getUncertainity());
 		                  return (o2 != null) ? o1.getCountry().compareTo(o2.getCountry()) : 1;
 		                }
 		                return -1;
@@ -175,11 +168,9 @@ public class TableView extends DataView {
 	        	}
 	        });
 	        dataTable.addColumnSortHandler(columnSortHandler);
-//	        dataTable.setPageSize(50);
+	        //Show the whole table in the scrollPabel and not only 10 entries (by default)
 	        dataTable.setVisibleRange(0,list.size());
-	        // We know that the data is sorted alphabetically by default.
-	        //Not sure what it does or if we really need it
-	        //dataTable.getColumnSortList().push(dataTable.getColumn(2));
+	        //Enable the scrolling function
 	        scrollPanel.setAlwaysShowScrollBars(true);
 	        mainPanel.add(scrollPanel);
 		
@@ -222,7 +213,7 @@ public class TableView extends DataView {
 				return object.getDate().toString();
 			}
         };
-        //column is sortable
+        //Set columns as sortable
         cityColumn.setSortable(true);
         countryColumn.setSortable(true);
         temperatureColumn.setSortable(true);
@@ -235,6 +226,7 @@ public class TableView extends DataView {
         uncertainityColumn.setDataStoreName("Uncertainty");
         dateColumn.setDataStoreName("Date");
         //column header is "Name"
+        //add columns to the table
         dataTable.addColumn(countryColumn, "Country");
         dataTable.addColumn(cityColumn, "City");
         dataTable.addColumn(temperatureColumn, "Temperature");
@@ -244,13 +236,23 @@ public class TableView extends DataView {
 
 	}
 
+	public double getUncertainity() {
+		return uncertainity;
+	}
+	public void setUncertainity(double uncertainity) {
+		this.uncertainity = uncertainity;
+	}
+	public void setCurrentYear(int year){
+		currentYear=year;
+	}
+	
 	@Override
 	public void fetchData() {
 		AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
 			@Override
 			public void onSuccess(ArrayList<DataPoint> result) {
 				setData(result);
-
+				//initialize the Table once the data from the database are ready to avoid errors
 				initContent();		
 			}
 

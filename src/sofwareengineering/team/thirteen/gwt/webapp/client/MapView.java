@@ -23,13 +23,15 @@ public class MapView extends DataView {
 
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.PX);
 	private GeoChart geoChart;
+	
+	//default attributes that will be changed with the Sliders/Boxes using getters and setters
 	private int currentYear=2013;
 	private double maxTemperature=100;
 	private double minTemperature=-100;
 	private double uncertainity=5;
+	//all the cities and countries will be shown
 	private String city="city";
 	private String country="country";
-	// private Logger l = new Logger("MapViewLog");
 
 	public String getCountry() {
 		return country;
@@ -146,7 +148,7 @@ public class MapView extends DataView {
 			}
 		};
 
-		// call to server
+		// call to server with the correct attributes (default at the beginning)
 		getDataService().getMapData(currentYear,minTemperature,maxTemperature,uncertainity,city,country,callback);
 	}
 }
