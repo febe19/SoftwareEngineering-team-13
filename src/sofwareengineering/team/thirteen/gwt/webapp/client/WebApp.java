@@ -21,30 +21,34 @@ import org.gwtbootstrap3.extras.slider.client.ui.RangeSlider;
 
 //extends TabLayoutPanel
 public class WebApp extends DockLayoutPanel implements EntryPoint {
-	
+
 	private MapView mapView = new MapView();
 	private TableView tableView = new TableView();
 	private SelectionPanel selectionPanel = new SelectionPanel();
-	
+
 	public WebApp(){
 		//Create DockLayoutPanel -- first Panel inserted to Root Panel
 		super(Style.Unit.EM);
-		
+
 		//Create TabLayoutPanel and add two tabs
 		TabLayoutPanel menu = new TabLayoutPanel(5, Style.Unit.EM);
-		
+
 		menu.add(mapView, "Worldmap");
 		menu.add(tableView, "Data Table");
 		menu.selectTab(0);
 		menu.setAnimationDuration(400);
-		
+
 		selectionPanel.setStyleName("gwt-SelectionPanel");
 		mapView.setStyleName("gwt-TabPanel");
-		
+
 		//Add tabPanle to north and selection panel to south
 		addNorth(menu,40);
 		addSouth(selectionPanel, 15);
-		
+
+		//Set slider value to default
+		selectionPanel.getYearSlider().setValue((double) mapView.getCurrentYear());
+		selectionPanel.getTempSlider().setValue(new Range(mapView.getMinTemperature(),mapView.getMaxTemperature()));
+		selectionPanel.getUncertainitySlider().setValue(mapView.getUncertainity());
 		//Get the value from the slider when it stops moving
 		selectionPanel.getYearSlider().addSlideStopHandler(new SlideStopHandler<Double>(){
 			public void onSlideStop(SlideStopEvent<Double> event){
@@ -56,7 +60,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				tableView.fetchData();
 			}
 		});
-		
+
 		//Get the value from the temperature slider
 		selectionPanel.getTempSlider().addSlideStopHandler(new SlideStopHandler<Range>(){
 			@Override
@@ -64,14 +68,16 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				//Set the Min and Max temperatures for the mapView
 				mapView.setMaxTemperature(selectionPanel.getTempSlider().getValue().getMaxValue());
 				mapView.setMinTemperature(selectionPanel.getTempSlider().getValue().getMinValue()); 
-				//TODO Set the Min and Max temperature for the TableView
+				//Set the Min and Max temperature for the TableView
+				tableView.setMinTemperature(selectionPanel.getTempSlider().getValue().getMinValue());
+				tableView.setMaxTemperature(selectionPanel.getTempSlider().getValue().getMaxValue());
 				//Upload the data with the new values
 				mapView.fetchData();
 				tableView.fetchData();
 			}
-			
+
 		});
-		
+
 		//Get the value from the Uncertainty Slider
 		//TODO CHECK THE WHOLE PROJECT AND CHANGE UNCERTAINITY TO UNCERTAINTY (without "I")
 		selectionPanel.getUncertainitySlider().addSlideStopHandler(new SlideStopHandler<Double>(){
@@ -84,11 +90,11 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				mapView.fetchData();
 				//TODO add uncertainty to getTableData() method and query and...HAVE FUN!
 				tableView.fetchData();
-				
+
 			}
-			
+
 		});
-		
+
 		//Check the Uncertainty's checkbox when is ticked
 		selectionPanel.getCheckBox().addClickHandler(new ClickHandler() {
 			@Override
@@ -99,13 +105,15 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 					//Set the uncertainty level to the value on the slider
 					mapView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
 					//Update 
+					tableView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
 					mapView.fetchData();
 					tableView.fetchData();
 				} else {
 					//When the checkbox is not ticked, all the temperature have to be displayed
-					//therefore we set the uncertainty level to 5 or a value bigger than every 
+					//therefore we set the uncertainty level to 15 or a value bigger than every 
 					//possible uncertainty
 					mapView.setUncertainity(0);
+					tableView.setUncertainity(0);
 					mapView.fetchData();
 					tableView.fetchData();
 				}
@@ -121,20 +129,20 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 					//If it is empty, show all the city
 					if(selectionPanel.getCityIN().getValue()==""){
 						mapView.setCity("city");
-						tableView.fetchData();
+						tableView.setCity("city");
 					}else{
-					//Otherwise get the selected City
-					//IMPORTANT: add " at the beginning and at the end of the string for the MySQL query
-					mapView.setCity("\""+selectionPanel.getCityIN().getValue().toString()+"\"");
+						//Otherwise get the selected City
+						//IMPORTANT: add " at the beginning and at the end of the string for the MySQL query
+						mapView.setCity("\""+selectionPanel.getCityIN().getValue().toString()+"\"");
+						tableView.setCity("\""+selectionPanel.getCityIN().getValue().toString()+"\"");
 					}
 					mapView.fetchData();
 					tableView.fetchData();
 				}
 			}
 		});
-		
-		selectionPanel.getCountryIN().addKeyDownHandler(new KeyDownHandler(){
 
+		selectionPanel.getCountryIN().addKeyDownHandler(new KeyDownHandler(){
 			@Override
 			public void onKeyDown(KeyDownEvent keyDownEvent) {
 				//Call this method only when enter is pressed
@@ -142,18 +150,20 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 					//If it is empty, show all the city
 					if(selectionPanel.getCountryIN().getValue()==""){
 						mapView.setCountry("country");
+						tableView.setCountry("country");
 					}else{
-					//Otherwise get the selected City
-					//IMPORTANT: add " at the beginning and at the end of the string for the MySQL query
-					mapView.setCountry("\""+selectionPanel.getCountryIN().getValue().toString()+"\"");
+						//Otherwise get the selected City
+						//IMPORTANT: add " at the beginning and at the end of the string for the MySQL query
+						mapView.setCountry("\""+selectionPanel.getCountryIN().getValue().toString()+"\"");
+						tableView.setCountry("\""+selectionPanel.getCountryIN().getValue().toString()+"\"");
 					}
 					mapView.fetchData();
 					tableView.fetchData();
 				}
 			}
-			
+
 		});
-		
+
 		//Reset Button
 		selectionPanel.getResetButton().addClickHandler(new ClickHandler() {
 			@Override
@@ -162,16 +172,23 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				mapView.setCurrentYear(2013);
 				mapView.setMinTemperature(-100);
 				mapView.setMaxTemperature(100);
-				mapView.setUncertainity(5);
+				mapView.setUncertainity(15);
 				mapView.setCity("city");
 				mapView.setCountry("country");
+				mapView.fetchData();
+				tableView.setCurrentYear(2013);
+				tableView.setMinTemperature(-100);
+				tableView.setMaxTemperature(100);
+				tableView.setUncertainity(15);
+				tableView.setCity("city");
+				tableView.setCountry("country");
 				mapView.fetchData();
 				tableView.fetchData();
 			}
 		});
 	}
-	
-	
+
+
 	@Override
 	public void onModuleLoad() {
 		WebApp webApp = new WebApp();

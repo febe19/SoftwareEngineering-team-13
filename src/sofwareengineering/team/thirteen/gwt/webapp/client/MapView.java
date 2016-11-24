@@ -27,9 +27,11 @@ public class MapView extends DataView {
 	
 	//default attributes that will be changed with the Sliders/Boxes using getters and setters
 	private int currentYear=2013;
-	private double maxTemperature=100;
-	private double minTemperature=-100;
-	private double uncertainity=5;
+
+
+	private double maxTemperature=40;
+	private double minTemperature=-30;
+	private double uncertainity=15;
 	//all the cities and countries will be shown
 	private String city="city";
 	private String country="country";
@@ -137,7 +139,9 @@ public class MapView extends DataView {
 	public void setCurrentYear(int year){
 		currentYear=year;
 	}
-	
+	public int getCurrentYear() {
+		return currentYear;
+	}
 	public void fetchData() {
 		AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
 

@@ -38,8 +38,12 @@ public class TableView extends DataView {
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.EM);
 	private CellTable<DataPoint> dataTable = new CellTable<DataPoint>();
 	private int currentYear=2013;
-	private double uncertainity=5;
-	private double checkboxUncertainity = 5;
+	private double uncertainity=15;
+	private double checkboxUncertainity = 15;
+	private double minTemperature = -30;
+	private double maxTemperature = 40;
+	private String country = "country";
+	private String city ="city";
 	//important for updating the table
 	private boolean firstTime=true;
 	ScrollPanel scrollPanel = new ScrollPanel(dataTable);
@@ -245,6 +249,18 @@ public class TableView extends DataView {
 	public void setCurrentYear(int year){
 		currentYear=year;
 	}
+	public void setMinTemperature(double minTemperature) {
+		this.minTemperature = minTemperature;
+	}
+	public void setMaxTemperature(double maxTemperature) {
+		this.maxTemperature = maxTemperature;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
 	
 	@Override
 	public void fetchData() {
@@ -263,6 +279,6 @@ public class TableView extends DataView {
 			}
 		};
 		// call to server
-		getDataService().getTableData(currentYear,callback);
+		getDataService().getTableData(currentYear,minTemperature, maxTemperature, uncertainity,city, country, callback);
 	}
 }
