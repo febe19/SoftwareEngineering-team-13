@@ -12,6 +12,8 @@ public abstract class DataView extends Composite{
 	private List<DataPoint> data;
 	private List<DataPoint> TableData;
 	private List<DataPoint> countryList;
+	private List<DataPoint> cityList;
+	
 	
 	public List<DataPoint> getCountryList2() {
 		return countryList;
@@ -47,5 +49,13 @@ public abstract class DataView extends Composite{
 
 	public void setData(List<DataPoint> data) {
 		this.data = data;
+	}
+
+	public List<DataPoint> getCityList2() {
+		return cityList;
+	}
+
+	public void setCityList(List<DataPoint> cityList) {
+		this.cityList = cityList;
 	}
 }

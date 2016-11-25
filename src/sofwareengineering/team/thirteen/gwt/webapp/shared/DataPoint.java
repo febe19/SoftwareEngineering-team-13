@@ -9,12 +9,7 @@ public class DataPoint implements IsSerializable{
 	private int id;
 	private int year;
 	private int month;
-	public int getMonth() {
-		return month;
-	}
-	public void setMonth(int month) {
-		this.month = month;
-	}
+	
 	private String region;
 	private String country;
 	private String latitude;
@@ -40,6 +35,12 @@ public DataPoint(int id, int year, int month,String region, String country, Stri
 		this.uncertainity = uncertainity;
 	}
 
+	public int getMonth() {
+		return month;
+	}
+	public void setMonth(int month) {
+	this.month = month;
+	}
 	public int getId() {
 		return id;
 	}
@@ -94,5 +95,11 @@ public DataPoint(int id, int year, int month,String region, String country, Stri
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public void setCity(String city) {
+		this.region= city;
+	}
+	public String getCity(){
+		return region;
 	}
 }

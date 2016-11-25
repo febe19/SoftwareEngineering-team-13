@@ -37,7 +37,10 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 	private MapView mapView;
 	private TableView tableView;
 	private SelectionPanel selectionPanel;
-	private boolean firstTime=true;
+	private boolean firstTimeCounty=true;
+	private boolean firstTimeCity=true;
+
+	@SuppressWarnings("deprecation")
 	public WebApp() {
 		// Create DockLayoutPanel -- first Panel inserted to Root Panel
 		super(Style.Unit.EM);
@@ -64,6 +67,8 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		selectionPanel.getTempSlider().setValue(new Range(mapView.getMinTemperature(), mapView.getMaxTemperature()));
 		selectionPanel.getUncertainitySlider().setValue(mapView.getUncertainity());
 		selectionPanel.getCountryIN().addItem("Show all countries");
+//		selectionPanel.getCityIN().addItem("Show all cities");
+		
 		// Get the value from the slider when it stops moving
 		selectionPanel.getYearSlider().addSlideStopHandler(new SlideStopHandler<Double>() {
 			public void onSlideStop(SlideStopEvent<Double> event) {
@@ -140,28 +145,8 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 			}
 
 		});
-		// Country Box
-		selectionPanel.getCityIN().addKeyDownHandler(new KeyDownHandler() {
-			@Override
-			public void onKeyDown(KeyDownEvent keyDownEvent) {
-				// Call this method only when enter is pressed
-				if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					// If it is empty, show all the city
-					if (selectionPanel.getCityIN().getValue() == "") {
-						mapView.setCity("city");
-						tableView.setCity("city");
-					} else {
-						// Otherwise get the selected City
-						// IMPORTANT: add " at the beginning and at the end of
-						// the string for the MySQL query
-						mapView.setCity("\"" + selectionPanel.getCityIN().getValue().toString() + "\"");
-						tableView.setCity("\"" + selectionPanel.getCityIN().getValue().toString() + "\"");
-					}
-					mapView.fetchData();
-					tableView.fetchData();
-				}
-			}
-		});
+
+		
 		selectionPanel.getCountryIN().addChangeListener(new ChangeListener(){
 
 			@Override
@@ -170,7 +155,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				mapView.setCountry("country");
 				tableView.setCountry("country");
 			} else {
-				// Otherwise get the selected City
+				// Otherwise get the selected Country
 				// IMPORTANT: add " at the beginning and at the end of
 				// the string for the MySQL query
 				mapView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
@@ -180,29 +165,27 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 			tableView.fetchData();
 			}
 		});
+		
+		selectionPanel.getCityIN().addChangeListener(new ChangeListener(){
 
-			
-		selectionPanel.getCountryIN().addKeyDownHandler(new KeyDownHandler() {
 			@Override
-			public void onKeyDown(KeyDownEvent keyDownEvent) {
-				// Call this method only when enter is pressed
-				if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					// If it is empty, show all the city
-					if (selectionPanel.getCountryIN().getSelectedValue() == "Show all countries") {
-						mapView.setCountry("country");
-						tableView.setCountry("country");
-					} else {
-						// Otherwise get the selected City
-						// IMPORTANT: add " at the beginning and at the end of
-						// the string for the MySQL query
-						mapView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
-						tableView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
-					}
-					mapView.fetchData();
-					tableView.fetchData();
-				}
+			public void onChange(Widget sender) {
+				if (selectionPanel.getCountryIN().getSelectedValue() == "Show all countries") {
+				mapView.setCity("city");
+				tableView.setCity("city");
+			} else {
+				// Otherwise get the selected City
+				// IMPORTANT: add " at the beginning and at the end of
+				// the string for the MySQL query
+				mapView.setCity("\"" + selectionPanel.getCityIN().getSelectedValue() + "\"");
+				tableView.setCity("\"" + selectionPanel.getCityIN().getSelectedValue() + "\"");
+//				tableView.fetchCityList();
+			}
+			mapView.fetchData();
+			tableView.fetchData();
 			}
 		});
+			
 
 		// Reset Button
 		selectionPanel.getResetButton().addClickHandler(new ClickHandler() {
@@ -228,20 +211,31 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 
 			}
 		});
+		selectionPanel.getCityIN().addMouseOverHandler(new MouseOverHandler(){
+
+			@Override
+			public void onMouseOver(MouseOverEvent event) {
+				if(firstTimeCity){
+					firstTimeCity=false;
+					for (DataPoint p : tableView.getCities()) {
+						selectionPanel.getCityIN().addItem(p.getCity());
+					}
+				}
+			}
+		});
 		selectionPanel.getCountryIN().addMouseOverHandler(new MouseOverHandler(){
 
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
-				if(firstTime){
-					firstTime=false;
+				if(firstTimeCounty){
+					firstTimeCounty=false;
 					for (DataPoint p : tableView.getCountries()) {
 						selectionPanel.getCountryIN().addItem(p.getCountry());
 					}
 				}
-
 			}
 			
-		});		
+		});
 	}
 
 	@Override
@@ -251,5 +245,4 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		RootLayoutPanel.get().add(webApp);
 
 	}
-
 }

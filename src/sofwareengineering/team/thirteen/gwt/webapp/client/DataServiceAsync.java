@@ -14,4 +14,5 @@ public interface DataServiceAsync {
 			String city, String country,AsyncCallback<ArrayList<DataPoint>> callback);
 	void getTableData(int year,double minTemperature, double maxTemperature,double uncertainty,String city, String country,AsyncCallback<ArrayList<DataPoint>> callback);
 	void getCountryList(AsyncCallback<ArrayList<DataPoint>> callback);
+	void getCityList(AsyncCallback<ArrayList<DataPoint>> callback);
 }

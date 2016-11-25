@@ -49,9 +49,9 @@ public class SelectionPanel extends Composite{
 
 	// panel
 	private Label city = new Label("City");
-	private TextBox cityIN = new TextBox();
+	private ListBox cityIN = new ListBox();
 
-	public TextBox getCityIN() {
+	public ListBox getCityIN() {
 		return cityIN;
 	}
 

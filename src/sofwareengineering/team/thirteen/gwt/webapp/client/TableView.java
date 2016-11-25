@@ -48,6 +48,7 @@ public class TableView extends DataView {
 	private boolean firstTime=true;
 	ScrollPanel scrollPanel = new ScrollPanel(dataTable);
 	private List<DataPoint> Countries = new ArrayList<>();
+	private List<DataPoint> Cities = new ArrayList<>();
 	
 
 
@@ -55,6 +56,7 @@ public class TableView extends DataView {
 	public TableView() {
 		fetchData();
 		fetchCountryList();
+		fetchCityList();
 		initWidget(mainPanel);
 		
 	
@@ -68,6 +70,16 @@ public class TableView extends DataView {
 	public void setCountries(List<DataPoint> countries) {
 		Countries = countries;
 	}
+	private void setCitiesList(){
+		Cities = getCityList2();
+	}
+	public List<DataPoint> getCities() {
+		return Cities;
+	}
+	public void setCities(List<DataPoint> cities) {
+		Cities = cities;
+	}
+	
 	// Fill the Main Panel with Stuff
 	private void initContent() {
 		
@@ -313,5 +325,25 @@ public class TableView extends DataView {
 		};
 		// call to server
 		getDataService().getCountryList(callback);
+	}
+	
+	public void fetchCityList() {
+		AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
+			@Override
+			public void onSuccess(ArrayList<DataPoint> result) {
+				
+				setCityList(result);
+				setCitiesList();
+				//initialize the Table once the data from the database are ready to avoid errors
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Do something
+				GWT.log("Failed2");
+			}
+		};
+		// call to server
+		getDataService().getCityList(callback);
 	}
 }
