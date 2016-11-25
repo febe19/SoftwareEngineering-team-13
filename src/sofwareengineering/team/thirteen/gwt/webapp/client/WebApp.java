@@ -8,29 +8,43 @@ import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DragOverEvent;
+import com.google.gwt.event.dom.client.DragOverHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
+import com.google.gwt.user.client.ui.Widget;
+
+import java.lang.Thread;
+import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
+
 import org.gwtbootstrap3.extras.slider.client.ui.Range;
 import org.gwtbootstrap3.extras.slider.client.ui.RangeSlider;
 
 //extends TabLayoutPanel
 public class WebApp extends DockLayoutPanel implements EntryPoint {
 
-	private MapView mapView = new MapView();
-	private TableView tableView = new TableView();
-	private SelectionPanel selectionPanel = new SelectionPanel();
-
-	public WebApp(){
-		//Create DockLayoutPanel -- first Panel inserted to Root Panel
+	private MapView mapView;
+	private TableView tableView;
+	private SelectionPanel selectionPanel;
+	private boolean firstTime=true;
+	public WebApp() {
+		// Create DockLayoutPanel -- first Panel inserted to Root Panel
 		super(Style.Unit.EM);
-
-		//Create TabLayoutPanel and add two tabs
+		tableView = new TableView();
+		mapView = new MapView();
+		selectionPanel = new SelectionPanel();
+		// Create TabLayoutPanel and add two tabs
 		TabLayoutPanel menu = new TabLayoutPanel(5, Style.Unit.EM);
 
 		menu.add(mapView, "Worldmap");
@@ -41,77 +55,83 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		selectionPanel.setStyleName("gwt-SelectionPanel");
 		mapView.setStyleName("gwt-TabPanel");
 
-		//Add tabPanle to north and selection panel to south
-		addNorth(menu,40);
+		// Add tabPanle to north and selection panel to south
+		addNorth(menu, 40);
 		addSouth(selectionPanel, 15);
 
-		//Set slider value to default
+		// Set slider value to default
 		selectionPanel.getYearSlider().setValue((double) mapView.getCurrentYear());
-		selectionPanel.getTempSlider().setValue(new Range(mapView.getMinTemperature(),mapView.getMaxTemperature()));
+		selectionPanel.getTempSlider().setValue(new Range(mapView.getMinTemperature(), mapView.getMaxTemperature()));
 		selectionPanel.getUncertainitySlider().setValue(mapView.getUncertainity());
-		//Get the value from the slider when it stops moving
-		selectionPanel.getYearSlider().addSlideStopHandler(new SlideStopHandler<Double>(){
-			public void onSlideStop(SlideStopEvent<Double> event){
-				//Set the year field for mapView and tableView
+		selectionPanel.getCountryIN().addItem("Show all countries");
+		// Get the value from the slider when it stops moving
+		selectionPanel.getYearSlider().addSlideStopHandler(new SlideStopHandler<Double>() {
+			public void onSlideStop(SlideStopEvent<Double> event) {
+				// Set the year field for mapView and tableView
 				mapView.setCurrentYear(Integer.parseInt(String.valueOf(selectionPanel.getYearSlider().getValue())));
 				tableView.setCurrentYear(Integer.parseInt(String.valueOf(selectionPanel.getYearSlider().getValue())));
-				//Call the "load" function for both mapView and TableView with the new values
+				// Call the "load" function for both mapView and TableView with
+				// the new values
 				mapView.fetchData();
 				tableView.fetchData();
 			}
 		});
 
-		//Get the value from the temperature slider
-		selectionPanel.getTempSlider().addSlideStopHandler(new SlideStopHandler<Range>(){
+		// Get the value from the temperature slider
+		selectionPanel.getTempSlider().addSlideStopHandler(new SlideStopHandler<Range>() {
 			@Override
 			public void onSlideStop(SlideStopEvent<Range> event) {
-				//Set the Min and Max temperatures for the mapView
+				// Set the Min and Max temperatures for the mapView
 				mapView.setMaxTemperature(selectionPanel.getTempSlider().getValue().getMaxValue());
-				mapView.setMinTemperature(selectionPanel.getTempSlider().getValue().getMinValue()); 
-				//Set the Min and Max temperature for the TableView
+				mapView.setMinTemperature(selectionPanel.getTempSlider().getValue().getMinValue());
+				// Set the Min and Max temperature for the TableView
 				tableView.setMinTemperature(selectionPanel.getTempSlider().getValue().getMinValue());
 				tableView.setMaxTemperature(selectionPanel.getTempSlider().getValue().getMaxValue());
-				//Upload the data with the new values
+				// Upload the data with the new values
 				mapView.fetchData();
 				tableView.fetchData();
 			}
 
 		});
 
-		//Get the value from the Uncertainty Slider
-		//TODO CHECK THE WHOLE PROJECT AND CHANGE UNCERTAINITY TO UNCERTAINTY (without "I")
-		selectionPanel.getUncertainitySlider().addSlideStopHandler(new SlideStopHandler<Double>(){
+		// Get the value from the Uncertainty Slider
+		// TODO CHECK THE WHOLE PROJECT AND CHANGE UNCERTAINITY TO UNCERTAINTY
+		// (without "I")
+		selectionPanel.getUncertainitySlider().addSlideStopHandler(new SlideStopHandler<Double>() {
 			@Override
 			public void onSlideStop(SlideStopEvent<Double> event) {
-				//Set the uncertainty for mapView and table
+				// Set the uncertainty for mapView and table
 				mapView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
 				tableView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
-				//Upload the data with the new values
+				// Upload the data with the new values
 				mapView.fetchData();
-				//TODO add uncertainty to getTableData() method and query and...HAVE FUN!
+				// TODO add uncertainty to getTableData() method and query
+				// and...HAVE FUN!
 				tableView.fetchData();
 
 			}
 
 		});
 
-		//Check the Uncertainty's checkbox when is ticked
+		// Check the Uncertainty's checkbox when is ticked
 		selectionPanel.getCheckBox().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				//get the current state (checked or unchecked)
+				// get the current state (checked or unchecked)
 				boolean checked = ((CheckBox) event.getSource()).getValue();
 				if (checked) {
-					//Set the uncertainty level to the value on the slider
+					// Set the uncertainty level to the value on the slider
 					mapView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
-					//Update 
+					// Update
 					tableView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
 					mapView.fetchData();
 					tableView.fetchData();
 				} else {
-					//When the checkbox is not ticked, all the temperature have to be displayed
-					//therefore we set the uncertainty level to 15 or a value bigger than every 
-					//possible uncertainty
+					// When the checkbox is not ticked, all the temperature have
+					// to be displayed
+					// therefore we set the uncertainty level to 15 or a value
+					// bigger than every
+					// possible uncertainty
 					mapView.setUncertainity(0);
 					tableView.setUncertainity(0);
 					mapView.fetchData();
@@ -120,55 +140,76 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 			}
 
 		});
-		//Country Box
+		// Country Box
 		selectionPanel.getCityIN().addKeyDownHandler(new KeyDownHandler() {
 			@Override
 			public void onKeyDown(KeyDownEvent keyDownEvent) {
-				//Call this method only when enter is pressed
+				// Call this method only when enter is pressed
 				if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					//If it is empty, show all the city
-					if(selectionPanel.getCityIN().getValue()==""){
+					// If it is empty, show all the city
+					if (selectionPanel.getCityIN().getValue() == "") {
 						mapView.setCity("city");
 						tableView.setCity("city");
-					}else{
-						//Otherwise get the selected City
-						//IMPORTANT: add " at the beginning and at the end of the string for the MySQL query
-						mapView.setCity("\""+selectionPanel.getCityIN().getValue().toString()+"\"");
-						tableView.setCity("\""+selectionPanel.getCityIN().getValue().toString()+"\"");
+					} else {
+						// Otherwise get the selected City
+						// IMPORTANT: add " at the beginning and at the end of
+						// the string for the MySQL query
+						mapView.setCity("\"" + selectionPanel.getCityIN().getValue().toString() + "\"");
+						tableView.setCity("\"" + selectionPanel.getCityIN().getValue().toString() + "\"");
 					}
 					mapView.fetchData();
 					tableView.fetchData();
 				}
 			}
 		});
+		selectionPanel.getCountryIN().addChangeListener(new ChangeListener(){
 
-		selectionPanel.getCountryIN().addKeyDownHandler(new KeyDownHandler(){
+			@Override
+			public void onChange(Widget sender) {
+				if (selectionPanel.getCountryIN().getSelectedValue() == "Show all countries") {
+				mapView.setCountry("country");
+				tableView.setCountry("country");
+			} else {
+				// Otherwise get the selected City
+				// IMPORTANT: add " at the beginning and at the end of
+				// the string for the MySQL query
+				mapView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
+				tableView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
+			}
+			mapView.fetchData();
+			tableView.fetchData();
+			}
+		});
+
+			
+		selectionPanel.getCountryIN().addKeyDownHandler(new KeyDownHandler() {
 			@Override
 			public void onKeyDown(KeyDownEvent keyDownEvent) {
-				//Call this method only when enter is pressed
+				// Call this method only when enter is pressed
 				if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					//If it is empty, show all the city
-					if(selectionPanel.getCountryIN().getValue()==""){
+					// If it is empty, show all the city
+					if (selectionPanel.getCountryIN().getSelectedValue() == "Show all countries") {
 						mapView.setCountry("country");
 						tableView.setCountry("country");
-					}else{
-						//Otherwise get the selected City
-						//IMPORTANT: add " at the beginning and at the end of the string for the MySQL query
-						mapView.setCountry("\""+selectionPanel.getCountryIN().getValue().toString()+"\"");
-						tableView.setCountry("\""+selectionPanel.getCountryIN().getValue().toString()+"\"");
+					} else {
+						// Otherwise get the selected City
+						// IMPORTANT: add " at the beginning and at the end of
+						// the string for the MySQL query
+						mapView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
+						tableView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
 					}
 					mapView.fetchData();
 					tableView.fetchData();
 				}
 			}
-
 		});
 
-		//Reset Button
+		// Reset Button
 		selectionPanel.getResetButton().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent clickEvent) {
-				//Reset all the values to default and reload mapView and tableView
+				// Reset all the values to default and reload mapView and
+				// tableView
 				mapView.setCurrentYear(2013);
 				mapView.setMinTemperature(-100);
 				mapView.setMaxTemperature(100);
@@ -184,15 +225,31 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				tableView.setCountry("country");
 				mapView.fetchData();
 				tableView.fetchData();
+
 			}
 		});
-	}
+		selectionPanel.getCountryIN().addMouseOverHandler(new MouseOverHandler(){
 
+			@Override
+			public void onMouseOver(MouseOverEvent event) {
+				if(firstTime){
+					firstTime=false;
+					for (DataPoint p : tableView.getCountries()) {
+						selectionPanel.getCountryIN().addItem(p.getCountry());
+					}
+				}
+
+			}
+			
+		});		
+	}
 
 	@Override
 	public void onModuleLoad() {
 		WebApp webApp = new WebApp();
+
 		RootLayoutPanel.get().add(webApp);
+
 	}
 
 }

@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -23,7 +24,7 @@ import org.gwtbootstrap3.extras.slider.client.ui.base.SliderBase;
 import org.gwtbootstrap3.extras.slider.client.ui.base.event.SlideStopEvent;
 import org.gwtbootstrap3.extras.slider.client.ui.base.event.SlideStopHandler;
 
-public class SelectionPanel extends Composite {
+public class SelectionPanel extends Composite{
 
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.EM);
 	private VerticalPanel criteriaPanel = new VerticalPanel();
@@ -36,8 +37,13 @@ public class SelectionPanel extends Composite {
 	private HorizontalPanel uncertainitySliderAndToggle = new HorizontalPanel();
 	private VerticalPanel buttonPanel = new VerticalPanel();
 	private Label country = new Label("Country");
-	private TextBox countryIN = new TextBox(); // TODO check for suggestion
-	public TextBox getCountryIN() {
+	private ListBox countryIN = new ListBox(); // TODO check for suggestion
+//	private ListBox countryInput = new ListBox();
+	
+//	public ListBox getCountryInput(){
+//		return countryInput;
+//	}
+	public ListBox getCountryIN() {
 		return countryIN;
 	}
 
@@ -88,6 +94,7 @@ public class SelectionPanel extends Composite {
 		initWidget(mainPanel);
 		initContent();
 	}
+	
 
 	public Slider getYearSlider() {
 		return yearSlider;

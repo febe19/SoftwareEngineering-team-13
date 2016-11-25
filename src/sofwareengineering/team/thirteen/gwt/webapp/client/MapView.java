@@ -160,5 +160,11 @@ public class MapView extends DataView {
 		// call to server with the correct attributes (default at the beginning)
 		getDataService().getMapData(currentYear,minTemperature,maxTemperature,uncertainity,city,country,callback);
 	}
+
+	@Override
+	public void fetchCountryList() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

@@ -47,13 +47,26 @@ public class TableView extends DataView {
 	//important for updating the table
 	private boolean firstTime=true;
 	ScrollPanel scrollPanel = new ScrollPanel(dataTable);
+	private List<DataPoint> Countries = new ArrayList<>();
+	
 
 
 	// Create the MapViewMainPanel
 	public TableView() {
 		fetchData();
+		fetchCountryList();
 		initWidget(mainPanel);
-
+		
+	
+	}
+	private void setCountriesList(){
+		Countries = getCountryList2();
+	}
+	public List<DataPoint> getCountries() {
+		return Countries;
+	}
+	public void setCountries(List<DataPoint> countries) {
+		Countries = countries;
 	}
 	// Fill the Main Panel with Stuff
 	private void initContent() {
@@ -280,5 +293,25 @@ public class TableView extends DataView {
 		};
 		// call to server
 		getDataService().getTableData(currentYear,minTemperature, maxTemperature, uncertainity,city, country, callback);
+	}
+	
+	public void fetchCountryList() {
+		AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
+			@Override
+			public void onSuccess(ArrayList<DataPoint> result) {
+				
+				setCountryList(result);
+				setCountriesList();
+				//initialize the Table once the data from the database are ready to avoid errors
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Do something
+				GWT.log("Failed2");
+			}
+		};
+		// call to server
+		getDataService().getCountryList(callback);
 	}
 }

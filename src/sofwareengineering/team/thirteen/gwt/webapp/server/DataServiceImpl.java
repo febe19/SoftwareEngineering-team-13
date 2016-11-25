@@ -185,4 +185,32 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		
 		return data;
 	}
+
+	@Override
+	public ArrayList<DataPoint> getCountryList() {
+		Connection connection = getConnection();
+		PreparedStatement statement = null;
+		ResultSet result;
+		
+		ArrayList<DataPoint> data = new ArrayList<>();
+		
+		String query = "SELECT DISTINCT COUNTRY FROM `temperature-data` ORDER BY (COUNTRY)";
+		
+		try {
+			statement = connection.prepareStatement(query);
+			result = statement.executeQuery();
+			
+			while (result.next()) {
+				String tmpCountry = result.getString("Country");
+				DataPoint p = new DataPoint();
+				p.setCountry(tmpCountry);
+				data.add(p);
+            }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return data;
+	}
 }
