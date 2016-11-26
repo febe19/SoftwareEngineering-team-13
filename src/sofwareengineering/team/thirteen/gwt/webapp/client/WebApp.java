@@ -67,7 +67,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		selectionPanel.getTempSlider().setValue(new Range(mapView.getMinTemperature(), mapView.getMaxTemperature()));
 		selectionPanel.getUncertainitySlider().setValue(mapView.getUncertainity());
 		selectionPanel.getCountryIN().addItem("Show all countries");
-//		selectionPanel.getCityIN().addItem("Show all cities");
+		selectionPanel.getCityIN().addItem("Show all cities");
 		
 		// Get the value from the slider when it stops moving
 		selectionPanel.getYearSlider().addSlideStopHandler(new SlideStopHandler<Double>() {
@@ -170,7 +170,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 
 			@Override
 			public void onChange(Widget sender) {
-				if (selectionPanel.getCountryIN().getSelectedValue() == "Show all countries") {
+				if (selectionPanel.getCityIN().getSelectedValue() == "Show all cities") {
 				mapView.setCity("city");
 				tableView.setCity("city");
 			} else {
