@@ -41,6 +41,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 	private boolean firstTimeCity=true;
 	private boolean changes = false;
 	private boolean changeCountryAndCity=false;
+	private boolean firstTimeTable=true;
 
 	@SuppressWarnings("deprecation")
 	public WebApp() {
@@ -78,7 +79,11 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				if(event.getSelectedItem()==0&&changes){
 					mapView.fetchData();
 					changes=false;
-				}				
+				}			
+				if(firstTimeTable&&event.getSelectedItem()==1){
+					firstTimeTable=false;
+					tableView.fetchData();
+				}
 			}
 			
 		});

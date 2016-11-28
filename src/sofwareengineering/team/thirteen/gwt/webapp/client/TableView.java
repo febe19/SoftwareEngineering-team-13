@@ -54,7 +54,7 @@ public class TableView extends DataView {
 
 	// Create the MapViewMainPanel
 	public TableView() {
-		fetchData();
+		//fetchData();
 		fetchCountryList();
 		fetchCityList();
 		initWidget(mainPanel);
