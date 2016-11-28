@@ -167,7 +167,6 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 
 		
 		selectionPanel.getCountryIN().addChangeListener(new ChangeListener(){
-
 			@Override
 			public void onChange(Widget sender) {
 				if (selectionPanel.getCountryIN().getSelectedValue() == "Show all countries") {
@@ -180,9 +179,9 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				mapView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
 				tableView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
 			}
+			tableView.fetchCityList();
 			selectionPanel.getCityIN().clear();
 			selectionPanel.getCityIN().addItem("Show all cities");
-			tableView.fetchCityList();
 			changeCountryAndCity=true;
 			changes=true;
 			mapView.fetchData();
@@ -231,6 +230,13 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				tableView.setUncertainity(15);
 				tableView.setCity("city");
 				tableView.setCountry("country");
+				selectionPanel.getYearSlider().setValue((double) mapView.getCurrentYear());
+				selectionPanel.getTempSlider().setValue(new Range(mapView.getMinTemperature(), mapView.getMaxTemperature()));
+				selectionPanel.getUncertainitySlider().setValue(mapView.getUncertainity());
+				selectionPanel.getCountryIN().setSelectedIndex(0);
+				selectionPanel.getCityIN().setSelectedIndex(0);
+				tableView.fetchCityList();
+				changeCountryAndCity=true;
 				changes=true;
 				mapView.fetchData();
 				tableView.fetchData();
