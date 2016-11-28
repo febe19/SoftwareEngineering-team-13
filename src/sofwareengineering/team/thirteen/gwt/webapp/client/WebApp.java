@@ -39,6 +39,8 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 	private SelectionPanel selectionPanel;
 	private boolean firstTimeCounty=true;
 	private boolean firstTimeCity=true;
+	private boolean changes = false;
+	private boolean changeCountryAndCity=false;
 
 	@SuppressWarnings("deprecation")
 	public WebApp() {
@@ -69,6 +71,18 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		selectionPanel.getCountryIN().addItem("Show all countries");
 		selectionPanel.getCityIN().addItem("Show all cities");
 		
+		menu.addSelectionHandler(new SelectionHandler<Integer>(){
+
+			@Override
+			public void onSelection(SelectionEvent<Integer> event) {
+				if(event.getSelectedItem()==0&&changes){
+					mapView.fetchData();
+					changes=false;
+				}				
+			}
+			
+		});
+		
 		// Get the value from the slider when it stops moving
 		selectionPanel.getYearSlider().addSlideStopHandler(new SlideStopHandler<Double>() {
 			public void onSlideStop(SlideStopEvent<Double> event) {
@@ -77,6 +91,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				tableView.setCurrentYear(Integer.parseInt(String.valueOf(selectionPanel.getYearSlider().getValue())));
 				// Call the "load" function for both mapView and TableView with
 				// the new values
+				changes=true;
 				mapView.fetchData();
 				tableView.fetchData();
 			}
@@ -93,6 +108,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				tableView.setMinTemperature(selectionPanel.getTempSlider().getValue().getMinValue());
 				tableView.setMaxTemperature(selectionPanel.getTempSlider().getValue().getMaxValue());
 				// Upload the data with the new values
+				changes=true;
 				mapView.fetchData();
 				tableView.fetchData();
 			}
@@ -109,6 +125,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				mapView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
 				tableView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
 				// Upload the data with the new values
+				changes=true;
 				mapView.fetchData();
 				// TODO add uncertainty to getTableData() method and query
 				// and...HAVE FUN!
@@ -129,6 +146,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 					mapView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
 					// Update
 					tableView.setUncertainity(selectionPanel.getUncertainitySlider().getValue());
+					changes=true;
 					mapView.fetchData();
 					tableView.fetchData();
 				} else {
@@ -139,6 +157,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 					// possible uncertainty
 					mapView.setUncertainity(0);
 					tableView.setUncertainity(0);
+					changes=true;
 					mapView.fetchData();
 					tableView.fetchData();
 				}
@@ -161,6 +180,11 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				mapView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
 				tableView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
 			}
+			selectionPanel.getCityIN().clear();
+			selectionPanel.getCityIN().addItem("Show all cities");
+			tableView.fetchCityList();
+			changeCountryAndCity=true;
+			changes=true;
 			mapView.fetchData();
 			tableView.fetchData();
 			}
@@ -181,6 +205,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				tableView.setCity("\"" + selectionPanel.getCityIN().getSelectedValue() + "\"");
 //				tableView.fetchCityList();
 			}
+			changes=true;
 			mapView.fetchData();
 			tableView.fetchData();
 			}
@@ -206,6 +231,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				tableView.setUncertainity(15);
 				tableView.setCity("city");
 				tableView.setCountry("country");
+				changes=true;
 				mapView.fetchData();
 				tableView.fetchData();
 
@@ -215,8 +241,11 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
-				if(firstTimeCity){
+				if(firstTimeCity||changeCountryAndCity){
 					firstTimeCity=false;
+					changeCountryAndCity=false;
+					selectionPanel.getCityIN().clear();
+					selectionPanel.getCityIN().addItem("Show all cities");
 					for (DataPoint p : tableView.getCities()) {
 						selectionPanel.getCityIN().addItem(p.getCity());
 					}
@@ -241,7 +270,6 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 		WebApp webApp = new WebApp();
-
 		RootLayoutPanel.get().add(webApp);
 
 	}

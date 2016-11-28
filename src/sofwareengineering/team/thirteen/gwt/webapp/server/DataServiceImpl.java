@@ -215,14 +215,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 	}
 
 	@Override
-	public ArrayList<DataPoint> getCityList() {
+	public ArrayList<DataPoint> getCityList(String country) {
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		ResultSet result;
 		
 		ArrayList<DataPoint> data = new ArrayList<>();
 		
-		String query = "SELECT DISTINCT CITY FROM `temperature-data` ORDER BY (CITY)";
+		String query = "SELECT DISTINCT CITY FROM `temperature-data` WHERE Country="+country+" ORDER BY (CITY)";
 		
 		try {
 			statement = connection.prepareStatement(query);

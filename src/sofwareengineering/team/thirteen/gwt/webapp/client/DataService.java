@@ -14,5 +14,5 @@ public interface DataService extends RemoteService{
 	ArrayList<DataPoint> getMapData(int year,double minTemperature, double maxTemperature, double uncertainity, String city, String country);
 	ArrayList<DataPoint> getTableData(int year, double minTemperature, double maxTemperature,double uncertainty, String city, String country);
 	ArrayList<DataPoint> getCountryList();
-	ArrayList<DataPoint> getCityList();
+	ArrayList<DataPoint> getCityList(String country);
 }

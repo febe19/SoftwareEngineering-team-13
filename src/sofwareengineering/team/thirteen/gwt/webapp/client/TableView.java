@@ -344,6 +344,6 @@ public class TableView extends DataView {
 			}
 		};
 		// call to server
-		getDataService().getCityList(callback);
+		getDataService().getCityList(country,callback);
 	}
 }
