@@ -174,13 +174,19 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 		selectionPanel.getCountryIN().addChangeListener(new ChangeListener(){
 			@Override
 			public void onChange(Widget sender) {
-				if (selectionPanel.getCountryIN().getSelectedValue() == "Show all countries") {
+				if (selectionPanel.getCountryIN().getSelectedValue() == "Show all countries"||
+						selectionPanel.getCountryIN().getSelectedValue() == "---") {
 				mapView.setCountry("country");
 				tableView.setCountry("country");
+				tableView.setCity("city");
+				mapView.setCity("city");
+				
 			} else {
 				// Otherwise get the selected Country
 				// IMPORTANT: add " at the beginning and at the end of
 				// the string for the MySQL query
+				tableView.setCity("city");
+				mapView.setCity("city");
 				mapView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
 				tableView.setCountry("\"" + selectionPanel.getCountryIN().getSelectedValue() + "\"");
 			}
@@ -209,6 +215,8 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				tableView.setCity("\"" + selectionPanel.getCityIN().getSelectedValue() + "\"");
 //				tableView.fetchCityList();
 			}
+//			selectionPanel.getCountryIN().setSelectedIndex(selectionPanel.getCountryIN().getItemCount()-1);
+			selectionPanel.getCountryIN().setSelectedIndex(-1);
 			changes=true;
 			mapView.fetchData();
 			tableView.fetchData();
@@ -272,6 +280,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 					for (DataPoint p : tableView.getCountries()) {
 						selectionPanel.getCountryIN().addItem(p.getCountry());
 					}
+					selectionPanel.getCountryIN().addItem("---");
 				}
 			}
 			
