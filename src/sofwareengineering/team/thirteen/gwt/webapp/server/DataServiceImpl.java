@@ -71,7 +71,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		ResultSet result;
-		
 		ArrayList<DataPoint> data = new ArrayList();
 		
 		
@@ -147,7 +146,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		ResultSet result;
 		
 		ArrayList<DataPoint> data = new ArrayList<>();
-		
 		String query = 
 				"SELECT * "
 				+"FROM `temperature-data` "
@@ -156,7 +154,9 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 				+" AND Temperature >="+ minTemperature
 				+" AND Temperature <="+maxTemperature
 				+" AND City ="+city
-				+" AND Country ="+country;
+				+" AND Country ="+country
+				+" AND Lat =Lat"
+				+" AND Lon=Lon";
 		
 		try {
 			statement = connection.prepareStatement(query);
@@ -169,12 +169,16 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 				double temp = result.getDouble("Temperature");
 				double uncertainity = result.getDouble("Uncertainty");
 				Date date = result.getDate("Date");
+				String latitude = String.valueOf(result.getDouble("Lat"));
+				String longitude = String.valueOf(result.getDouble("Lon"));
 				DataPoint p = new DataPoint();
 				p.setCountry(tmpCountry);
 				p.setRegion(tmpCity);
 				p.setAverageTemperature(temp);
 				p.setUncertainity(uncertainity);
 				p.setDate(date);
+				p.setLatitude(latitude);
+				p.setLongitude(longitude);
 				
 				data.add(p);		
             }

@@ -54,7 +54,7 @@ public class TableView extends DataView {
 
 	// Create the MapViewMainPanel
 	public TableView() {
-		//fetchData();
+//		fetchData();
 		fetchCountryList();
 		fetchCityList();
 		initWidget(mainPanel);
@@ -96,10 +96,10 @@ public class TableView extends DataView {
 		ListDataProvider<DataPoint> dataProvider = new ListDataProvider<DataPoint>();
 		dataProvider.addDataDisplay(dataTable);
 		List<DataPoint> list = dataProvider.getList();
-		if(getData()!=null){
+		if(getTableData()!=null){
 			
 
-			for (DataPoint p : getData()) {
+			for (DataPoint p : getTableData()) {
 				list.add(p);
 			}
 		}
@@ -197,6 +197,39 @@ public class TableView extends DataView {
 	        	}
 	        });
 	        dataTable.addColumnSortHandler(columnSortHandler);
+	        
+	        //Latitude Sort
+	        columnSortHandler.setComparator(dataTable.getColumn(5),
+	        		new Comparator<DataPoint>() {
+	        	public int compare(DataPoint o1, DataPoint o2) {
+	        		if (o1 == o2) {
+	        			return 0;
+	        		}
+
+	        		// Compare the name columns.
+	        		if (o1 != null) {
+	        			return (o2 != null) ? o1.getLatitude().compareTo(o2.getLatitude()) : 1;
+	        		}
+	        		return -1;
+	        	}
+	        });
+	        dataTable.addColumnSortHandler(columnSortHandler);
+	        //Longitude Sort
+	        columnSortHandler.setComparator(dataTable.getColumn(6),
+	        		new Comparator<DataPoint>() {
+	        	public int compare(DataPoint o1, DataPoint o2) {
+	        		if (o1 == o2) {
+	        			return 0;
+	        		}
+
+	        		// Compare the name columns.
+	        		if (o1 != null) {
+	        			return (o2 != null) ? o1.getLongitude().compareTo(o2.getLongitude()) : 1;
+	        		}
+	        		return -1;
+	        	}
+	        });
+	        dataTable.addColumnSortHandler(columnSortHandler);
 	        //Show the whole table in the scrollPabel and not only 10 entries (by default)
 	        dataTable.setVisibleRange(0,list.size());
 	        //Enable the scrolling function
@@ -242,18 +275,37 @@ public class TableView extends DataView {
 				return object.getDate().toString();
 			}
         };
+        TextColumn<DataPoint> latitudeColumn = new TextColumn<DataPoint>(){
+        	@Override
+        	public String getValue(DataPoint object) {
+        		// TODO get the data and return it
+        		return object.getLatitude();
+        	}
+        };
+        TextColumn<DataPoint> longitudeColumn = new TextColumn<DataPoint>(){
+        	@Override
+        	public String getValue(DataPoint object) {
+        		// TODO get the data and return it
+        		return object.getLongitude();
+        	}
+        };
+
         //Set columns as sortable
         cityColumn.setSortable(true);
         countryColumn.setSortable(true);
         temperatureColumn.setSortable(true);
         uncertainityColumn.setSortable(true);
         dateColumn.setSortable(true);
+        latitudeColumn.setSortable(true);
+        longitudeColumn.setSortable(true);
         //Column name in database
         countryColumn.setDataStoreName("Country");
         cityColumn.setDataStoreName("City");
         temperatureColumn.setDataStoreName("Temperature");
         uncertainityColumn.setDataStoreName("Uncertainty");
         dateColumn.setDataStoreName("Date");
+        latitudeColumn.setDataStoreName("Lat");
+        latitudeColumn.setDataStoreName("Lon");
         //column header is "Name"
         //add columns to the table
         dataTable.addColumn(countryColumn, "Country");
@@ -261,6 +313,8 @@ public class TableView extends DataView {
         dataTable.addColumn(temperatureColumn, "Temperature");
         dataTable.addColumn(uncertainityColumn, "Uncertainity");
         dataTable.addColumn(dateColumn, "Date");
+        dataTable.addColumn(latitudeColumn,"Latitude");
+        dataTable.addColumn(longitudeColumn,"Longitude");
 
 
 	}
@@ -292,7 +346,7 @@ public class TableView extends DataView {
 		AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
 			@Override
 			public void onSuccess(ArrayList<DataPoint> result) {
-				setData(result);
+				setTableData(result);
 				//initialize the Table once the data from the database are ready to avoid errors
 				initContent();		
 			}
@@ -300,7 +354,7 @@ public class TableView extends DataView {
 			@Override
 			public void onFailure(Throwable caught) {
 				// TODO Do something
-				GWT.log("Failed");
+				GWT.log("FetchData Failed");
 			}
 		};
 		// call to server
@@ -311,7 +365,6 @@ public class TableView extends DataView {
 		AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
 			@Override
 			public void onSuccess(ArrayList<DataPoint> result) {
-				
 				setCountryList(result);
 				setCountriesList();
 				//initialize the Table once the data from the database are ready to avoid errors
@@ -320,7 +373,7 @@ public class TableView extends DataView {
 			@Override
 			public void onFailure(Throwable caught) {
 				// TODO Do something
-				GWT.log("Failed2");
+				GWT.log("fetchCountryList failed");
 			}
 		};
 		// call to server
@@ -340,7 +393,7 @@ public class TableView extends DataView {
 			@Override
 			public void onFailure(Throwable caught) {
 				// TODO Do something
-				GWT.log("Failed2");
+				GWT.log("fetchCityList failed");
 			}
 		};
 		// call to server
