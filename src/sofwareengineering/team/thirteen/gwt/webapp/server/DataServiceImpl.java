@@ -79,15 +79,10 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 			result = statement.executeQuery();
 			
 			while (result.next()) {
-				
-				double temp = result.getDouble("Temperature");
-				String city = result.getString("City");
-				String country = result.getString("Country");
 				DataPoint p = new DataPoint();
-				p.setAverageTemperature(temp);
-				p.setRegion(city);
-				p.setCountry(country);
-
+				p.setAverageTemperature(result.getDouble("Temperature"));
+				p.setRegion(result.getString("City"));
+				p.setCountry(result.getString("Country"));
 				data.add(p);		
             }
 			
@@ -120,16 +115,10 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 			result = statement.executeQuery();
 			
 			while (result.next()) {
-				
-				double temp = result.getDouble("t");
-				String city = result.getString("City");
-				int yearPoint = year;
-				
 				DataPoint p = new DataPoint();
-				p.setAverageTemperature(temp);
-				p.setRegion(city);
+				p.setAverageTemperature(result.getDouble("t"));
+				p.setRegion(result.getString("City"));
 				p.setYear(year);
-				
 				data.add(p);	
             }
 			
@@ -163,23 +152,14 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 			result = statement.executeQuery();
 			
 			while (result.next()) {
-				
-				String tmpCountry = result.getString("Country");
-				String tmpCity = result.getString("City");
-				double temp = result.getDouble("Temperature");
-				double uncertainity = result.getDouble("Uncertainty");
-				Date date = result.getDate("Date");
-				String latitude = String.valueOf(result.getDouble("Lat"));
-				String longitude = String.valueOf(result.getDouble("Lon"));
 				DataPoint p = new DataPoint();
-				p.setCountry(tmpCountry);
-				p.setRegion(tmpCity);
-				p.setAverageTemperature(temp);
-				p.setUncertainity(uncertainity);
-				p.setDate(date);
-				p.setLatitude(latitude);
-				p.setLongitude(longitude);
-				
+				p.setCountry(result.getString("Country"));
+				p.setRegion(result.getString("City"));
+				p.setAverageTemperature(result.getDouble("Temperature"));
+				p.setUncertainity(result.getDouble("Uncertainty"));
+				p.setDate(result.getDate("Date"));
+				p.setLatitude(String.valueOf(result.getDouble("Lat")));
+				p.setLongitude(String.valueOf(result.getDouble("Lon")));
 				data.add(p);		
             }
 			
@@ -205,9 +185,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 			result = statement.executeQuery();
 			
 			while (result.next()) {
-				String tmpCountry = result.getString("Country");
 				DataPoint p = new DataPoint();
-				p.setCountry(tmpCountry);
+				p.setCountry(result.getString("Country"));
 				data.add(p);
             }
 			
@@ -233,9 +212,8 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 			result = statement.executeQuery();
 			
 			while (result.next()) {
-				String tmpCity = result.getString("City");
 				DataPoint p = new DataPoint();
-				p.setCity(tmpCity);
+				p.setCity(result.getString("City"));
 				data.add(p);
             }
 			
