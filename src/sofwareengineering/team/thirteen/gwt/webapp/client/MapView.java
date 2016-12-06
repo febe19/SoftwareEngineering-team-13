@@ -129,13 +129,11 @@ public class MapView extends DataView {
 		GeoChartOptions options = GeoChartOptions.create();
 		options.setDisplayMode(DisplayMode.MARKERS);
 		GeoChartColorAxis geoChartColorAxis = GeoChartColorAxis.create();
-//		geoChartColorAxis.setColors("0000FF", "5858FA", "A9A9F5", "F7819F","FE2E64", "FF0040");
 		geoChartColorAxis.setMaxValue(40);
 		geoChartColorAxis.setMinValue(-30);
 		geoChartColorAxis.setColors("FFFFFF", "AAAAFF", "5555FF", "0000FF","0080FF", "00FFFF", "00FF80", "00FF00", "80FF00", "FFFF00"
 				, "FF8000", "FF0000", "D02A2A", "A65454", "7C7C7C");
 		options.setColorAxis(geoChartColorAxis);
-//		options.setDatalessRegionColor("#858585");
 		options.setDatalessRegionColor("#cecece");
 		return options;
 

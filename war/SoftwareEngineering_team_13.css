@@ -12,7 +12,7 @@
 	box-sizing: content-box;
 	border: none;
 	font: normal 50px/1 Verdana, Geneva, sans-serif;
-	color: #858585;
+	color: #cecece;
 	-o-text-overflow: ellipsis;
 	text-overflow: ellipsis;
 
@@ -76,6 +76,7 @@
 	color: rgba(0, 0, 0, 1);
 	text-align: left;
 	text-align: bottom;
+	outline: none
 }
 
 .gwt-SliderLabel {
@@ -117,6 +118,7 @@
 	color: rgba(0, 0, 0, 1);
 	text-align: left;
 	text-align: bottom;
+	outline: none
 }
 
 .gwt-FilterTextInput {
@@ -133,6 +135,7 @@
 	-o-text-overflow: clip;
 	text-overflow: clip;
 	background: rgba(252, 252, 252, 1);
+	outline: none
 }
 
 input {

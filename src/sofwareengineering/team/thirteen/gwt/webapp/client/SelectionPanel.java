@@ -60,6 +60,7 @@ public class SelectionPanel extends Composite{
 	private Label uncertainity = new Label("Uncertainity");
 	private Slider yearSlider = new Slider();
 	private RangeSlider tempSlider = new RangeSlider();
+	
 	public RangeSlider getTempSlider() {
 		return tempSlider;
 	}
@@ -81,7 +82,6 @@ public class SelectionPanel extends Composite{
 
 	private Label labelForCheckBox = new Label("Show uncertain Data");
 
-	private Button exportButton = new Button("Export");
 	private Button resetButton = new Button("Reset Selection");
 	public Button getResetButton() {
 		return resetButton;
@@ -120,12 +120,12 @@ public class SelectionPanel extends Composite{
 		});
 
 		// Action when exportButton is clicked
-		exportButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent clickEvent) {
-				// TODO open Export Function
-			}
-		});
+//		exportButton.addClickHandler(new ClickHandler() {
+//		@Override
+//			public void onClick(ClickEvent clickEvent) {
+//				// TODO open Export Function
+//			}
+//		});
 
 		// Action when Enter is pressed after text input
 		countryIN.addKeyDownHandler(new KeyDownHandler() {
@@ -199,7 +199,6 @@ public class SelectionPanel extends Composite{
 		sliderPanel.add(uncertainityPanel);
 
 		initButtonStile();
-		buttonPanel.add(exportButton);
 		buttonPanel.add(resetButton);
 		buttonPanel.add(source);
 
@@ -207,10 +206,12 @@ public class SelectionPanel extends Composite{
 
 	// Reset And Export Button Style
 	private void initButtonStile() {
-		exportButton.setStyleName("gwt-SelectionButton");
 		resetButton.setStyleName("gwt-SelectionButton");
-		exportButton.setWidth("200px");
 		resetButton.setWidth("200px");
+		countryIN.setWidth("300px");
+		cityIN.setWidth("300px");
+		
+		
 	}
 
 	// Slider Style
