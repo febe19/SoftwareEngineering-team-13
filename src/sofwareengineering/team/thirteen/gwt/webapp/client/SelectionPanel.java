@@ -1,28 +1,16 @@
 package sofwareengineering.team.thirteen.gwt.webapp.client;
 
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyDownEvent;
-import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-import org.gwtbootstrap3.extras.slider.client.ui.Range;
 import org.gwtbootstrap3.extras.slider.client.ui.RangeSlider;
 import org.gwtbootstrap3.extras.slider.client.ui.Slider;
-import org.gwtbootstrap3.extras.slider.client.ui.base.SliderBase;
-import org.gwtbootstrap3.extras.slider.client.ui.base.event.SlideStopEvent;
-import org.gwtbootstrap3.extras.slider.client.ui.base.event.SlideStopHandler;
 
 public class SelectionPanel extends Composite{
 
@@ -37,134 +25,60 @@ public class SelectionPanel extends Composite{
 	private HorizontalPanel uncertainitySliderAndToggle = new HorizontalPanel();
 	private VerticalPanel buttonPanel = new VerticalPanel();
 	private Label country = new Label("Country");
-	private ListBox countryIN = new ListBox(); // TODO check for suggestion
-//	private ListBox countryInput = new ListBox();
+	private ListBox countryIN = new ListBox(); 
+	private Label city = new Label("City");
+	private ListBox cityIN = new ListBox();
+	private Label year = new Label("Year");
+	private Label temperature = new Label("Temperature in °C");
+	private Label uncertainity = new Label("Uncertainty in °C");
+	private Slider yearSlider = new Slider();
+	private RangeSlider tempSlider = new RangeSlider();
+	private Slider uncertainitySlider = new Slider();
+	private Button resetButton = new Button("Reset Selection");
+	private Anchor source = new Anchor("Raw data is from Berkeley Earth.",
+			false, "http://www.berkeleyearth.org");
+	Label infoLabel = new Label("Select the data you want to see:");
 	
-//	public ListBox getCountryInput(){
-//		return countryInput;
-//	}
+	
 	public ListBox getCountryIN() {
 		return countryIN;
 	}
 
-	// panel
-	private Label city = new Label("City");
-	private ListBox cityIN = new ListBox();
-
 	public ListBox getCityIN() {
 		return cityIN;
 	}
-
-	private Label year = new Label("Year");
-	private Label temperature = new Label("Temperature");
-	private Label uncertainity = new Label("Uncertainity");
-	private Slider yearSlider = new Slider();
-	private RangeSlider tempSlider = new RangeSlider();
 	
 	public RangeSlider getTempSlider() {
 		return tempSlider;
 	}
-
-	private Slider uncertainitySlider = new Slider();
 	
 	public Slider getUncertainitySlider() {
 		return uncertainitySlider;
 	}
 
-	private CheckBox checkBox = new CheckBox();
-	public CheckBox getCheckBox() {
-		return checkBox;
-	}
-
-	public void setCheckBox(CheckBox checkBox) {
-		this.checkBox = checkBox;
-	}
-
-	private Label labelForCheckBox = new Label("Show uncertain Data");
-
-	private Button resetButton = new Button("Reset Selection");
+	
 	public Button getResetButton() {
 		return resetButton;
 	}
-
-	private Anchor source = new Anchor("Raw data is from Berkeley Earth.",
-			false, "http://www.berkeleyearth.org");
-
-	public SelectionPanel() {
-		initWidget(mainPanel);
-		initContent();
-	}
-	
 
 	public Slider getYearSlider() {
 		return yearSlider;
 	}
 
+	// Mapview starts in this method
+	public SelectionPanel() {
+		initWidget(mainPanel);
+		initContent();
+	}
+	
 	private void initContent() {
 		// Shows Content in MainPanel
-		Label infoLabel = new Label("Select the data you want to see:");
 		infoLabel.setStyleName("gwt-FilterLabelInfo");
 		fillHorizontalPanel();
 		mainPanel.addNorth(infoLabel, 2);
 		mainPanel.addWest(criteriaPanel, 25);
 		mainPanel.addWest(sliderPanel, 100);
 		mainPanel.addEast(buttonPanel, 20);
-		// Action when slider is moved
-
-		// Action When reset Button is clicked
-		resetButton.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent clickEvent) {
-				// TODO ResetFilter
-			}
-		});
-
-		// Action when exportButton is clicked
-//		exportButton.addClickHandler(new ClickHandler() {
-//		@Override
-//			public void onClick(ClickEvent clickEvent) {
-//				// TODO open Export Function
-//			}
-//		});
-
-		// Action when Enter is pressed after text input
-		countryIN.addKeyDownHandler(new KeyDownHandler() {
-			@Override
-			public void onKeyDown(KeyDownEvent keyDownEvent) {
-				if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					// TODO reload data with filter criteria included
-				}
-			}
-		});
-		// Action when Enter is pressed after text input
-		cityIN.addKeyDownHandler(new KeyDownHandler() {
-			@Override
-			public void onKeyDown(KeyDownEvent keyDownEvent) {
-				if (keyDownEvent.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					// TODO reload data with filter criteria included
-				}
-			}
-		});
-
-		// TODO slider Input
-
-		// Checks the checkBox and enable/disable the UncertainitySlider
-		checkBox.addClickHandler(new ClickHandler() {
-			@Override
-			public void onClick(ClickEvent event) {
-				boolean checked = ((CheckBox) event.getSource()).getValue();
-				if (checked) {
-					uncertainitySlider.setEnabled(true);
-				} else {
-					uncertainitySlider.setEnabled(false);
-				}
-				//mainPanel.clear();
-				// initContent();
-				// Checkbox not working yet
-			}
-
-		});
-
 	}
 
 	private void fillHorizontalPanel() {
@@ -182,7 +96,6 @@ public class SelectionPanel extends Composite{
 
 		// Add Slider Panel to selectionPanel - middle.
 		initStyleForSlider();
-		labelForCheckBox.setStyleName("gwt-CheckBoxLabel");
 		
 		yearPanel.add(year);
 		yearPanel.add(yearSlider);
@@ -190,9 +103,6 @@ public class SelectionPanel extends Composite{
 		tempPanel.add(tempSlider);
 		uncertainityPanel.add(uncertainity);
 		uncertainitySliderAndToggle.add(uncertainitySlider);
-		uncertainitySliderAndToggle.add(labelForCheckBox);
-		uncertainitySliderAndToggle.add(checkBox);
-		checkBox.setValue(true);
 		uncertainityPanel.add(uncertainitySliderAndToggle);
 		sliderPanel.add(yearPanel);
 		sliderPanel.add(tempPanel);
@@ -204,16 +114,15 @@ public class SelectionPanel extends Composite{
 
 	}
 
-	// Reset And Export Button Style
+	// Reset Button and CityIN / CountryIN Style
 	private void initButtonStile() {
 		resetButton.setStyleName("gwt-SelectionButton");
 		resetButton.setWidth("200px");
 		countryIN.setWidth("300px");
-		cityIN.setWidth("300px");
-		
-		
+		cityIN.setWidth("300px");	
 	}
 
+	
 	// Slider Style
 	private void initStyleForSlider() {
 		// TODO anpassung der Mindest- und Maximaltemperatur.
@@ -226,7 +135,7 @@ public class SelectionPanel extends Composite{
 		tempSlider.setStyleName("gwt-Slider");
 		uncertainitySlider.setStyleName("gwt-Slider");
 
-		yearSlider.setMin(1849);
+		yearSlider.setMin(1743);
 		yearSlider.setMax(2013);
 		yearSlider.setWidth("700px");
 
@@ -238,7 +147,7 @@ public class SelectionPanel extends Composite{
 		uncertainitySlider.setMin(0);
 		uncertainitySlider.setMax(15);
 		uncertainitySlider.setStep(0.05);
-		uncertainitySlider.setWidth("500px");
+		uncertainitySlider.setWidth("700px");
 	}
 	
 

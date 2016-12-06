@@ -1,35 +1,24 @@
 package sofwareengineering.team.thirteen.gwt.webapp.server;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
 import com.google.appengine.api.utils.SystemProperty;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-
 import sofwareengineering.team.thirteen.gwt.webapp.client.DataService;
 import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
 
 public class DataServiceImpl extends RemoteServiceServlet implements DataService {
 	
-	private static final String DATA_FILE = "resources/GlobalLandTemperaturesByMajorCity_v1.csv";
-	private static final String CSV_SEPARATOR = ",";
-	
-	//Login for dataBank
+	//Login for dataBank when deployed to the App engine
 	private static final String PROD_PASSWORD = "1234";
 	private static final String PROD_URL="jdbc:google:mysql://softwareengineeringteam13:europe-west1:se13/se13";
 	private static final String PROD_USER="root";
 	
+	//Login for dataBank when NOT deployed on App engine.
 	private static final String DEV_USER="paedi";
 	private static final String DEV_PASSWORD="AY0nVCAmYDL331og";
 	private static final String DEV_URL="jdbc:mysql://paedi.icu.uzh.ch:8080/paedi";
@@ -71,7 +60,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		ResultSet result;
-		ArrayList<DataPoint> data = new ArrayList();
+		ArrayList<DataPoint> data = new ArrayList<DataPoint>();
 		
 		
 		try {

@@ -4,34 +4,18 @@ package sofwareengineering.team.thirteen.gwt.webapp.client;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import org.gwtbootstrap3.client.ui.gwt.CellTable;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.dom.client.Style;
-import com.googlecode.gwt.charts.client.*;
-import com.googlecode.gwt.charts.client.geochart.GeoChart;
-import com.googlecode.gwt.charts.client.options.DisplayMode;
-
-import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
-
-import com.googlecode.gwt.charts.client.geochart.GeoChartColorAxis;
-import com.googlecode.gwt.charts.client.geochart.GeoChartOptions;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.view.client.ListDataProvider;
-
 import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
+
 
 public class TableView extends DataView {
 
@@ -39,7 +23,6 @@ public class TableView extends DataView {
 	private CellTable<DataPoint> dataTable = new CellTable<DataPoint>();
 	private int currentYear=2013;
 	private double uncertainity=15;
-	private double checkboxUncertainity = 15;
 	private double minTemperature = -30;
 	private double maxTemperature = 40;
 	private String country = "country";
@@ -50,34 +33,11 @@ public class TableView extends DataView {
 	private List<DataPoint> Countries = new ArrayList<>();
 	private List<DataPoint> Cities = new ArrayList<>();
 	
-
-
 	// Create the MapViewMainPanel
 	public TableView() {
-//		fetchData();
 		fetchCountryList();
 		fetchCityList();
 		initWidget(mainPanel);
-		
-	
-	}
-	private void setCountriesList(){
-		Countries = getCountryList2();
-	}
-	public List<DataPoint> getCountries() {
-		return Countries;
-	}
-	public void setCountries(List<DataPoint> countries) {
-		Countries = countries;
-	}
-	private void setCitiesList(){
-		Cities = getCityList2();
-	}
-	public List<DataPoint> getCities() {
-		return Cities;
-	}
-	public void setCities(List<DataPoint> cities) {
-		Cities = cities;
 	}
 	
 	// Fill the Main Panel with Stuff
@@ -250,42 +210,36 @@ public class TableView extends DataView {
         TextColumn<DataPoint> cityColumn = new TextColumn<DataPoint>(){
   			@Override
 			public String getValue(DataPoint object) {
-				// TODO get the data and return it
 				return object.getRegion();
 			}
         };
         TextColumn<DataPoint> temperatureColumn = new TextColumn<DataPoint>(){
   			@Override
 			public String getValue(DataPoint object) {
-				// TODO get the data and return it
 				return String.valueOf(object.getAverageTemperature());
 			}
         };
         TextColumn<DataPoint> uncertainityColumn = new TextColumn<DataPoint>(){
   			@Override
 			public String getValue(DataPoint object) {
-				// TODO get the data and return it
 				return String.valueOf(object.getUncertainity());
 			}
         };
         TextColumn<DataPoint> dateColumn = new TextColumn<DataPoint>(){
   			@Override
 			public String getValue(DataPoint object) {
-				// TODO Get the data and return it
 				return object.getDate().toString();
 			}
         };
         TextColumn<DataPoint> latitudeColumn = new TextColumn<DataPoint>(){
         	@Override
         	public String getValue(DataPoint object) {
-        		// TODO get the data and return it
         		return object.getLatitude();
         	}
         };
         TextColumn<DataPoint> longitudeColumn = new TextColumn<DataPoint>(){
         	@Override
         	public String getValue(DataPoint object) {
-        		// TODO get the data and return it
         		return object.getLongitude();
         	}
         };
@@ -298,6 +252,7 @@ public class TableView extends DataView {
         dateColumn.setSortable(true);
         latitudeColumn.setSortable(true);
         longitudeColumn.setSortable(true);
+        
         //Column name in database
         countryColumn.setDataStoreName("Country");
         cityColumn.setDataStoreName("City");
@@ -306,6 +261,7 @@ public class TableView extends DataView {
         dateColumn.setDataStoreName("Date");
         latitudeColumn.setDataStoreName("Lat");
         latitudeColumn.setDataStoreName("Lon");
+        
         //column header is "Name"
         //add columns to the table
         dataTable.addColumn(countryColumn, "Country");
@@ -319,27 +275,7 @@ public class TableView extends DataView {
 
 	}
 
-	public double getUncertainity() {
-		return uncertainity;
-	}
-	public void setUncertainity(double uncertainity) {
-		this.uncertainity = uncertainity;
-	}
-	public void setCurrentYear(int year){
-		currentYear=year;
-	}
-	public void setMinTemperature(double minTemperature) {
-		this.minTemperature = minTemperature;
-	}
-	public void setMaxTemperature(double maxTemperature) {
-		this.maxTemperature = maxTemperature;
-	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
+	
 	
 	@Override
 	public void fetchData() {
@@ -392,11 +328,51 @@ public class TableView extends DataView {
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Do something
 				GWT.log("fetchCityList failed");
 			}
 		};
 		// call to server
 		getDataService().getCityList(country,callback);
+	}
+	
+	public double getUncertainity() {
+		return uncertainity;
+	}
+	public void setUncertainity(double uncertainity) {
+		this.uncertainity = uncertainity;
+	}
+	public void setCurrentYear(int year){
+		currentYear=year;
+	}
+	public void setMinTemperature(double minTemperature) {
+		this.minTemperature = minTemperature;
+	}
+	public void setMaxTemperature(double maxTemperature) {
+		this.maxTemperature = maxTemperature;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	private void setCountriesList(){
+		Countries = getCountryList2();
+	}
+	public List<DataPoint> getCountries() {
+		return Countries;
+	}
+	public void setCountries(List<DataPoint> countries) {
+		Countries = countries;
+	}
+	private void setCitiesList(){
+		Cities = getCityList2();
+	}
+	public List<DataPoint> getCities() {
+		return Cities;
+	}
+	public void setCities(List<DataPoint> cities) {
+		Cities = cities;
 	}
 }

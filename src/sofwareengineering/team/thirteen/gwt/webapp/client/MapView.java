@@ -1,43 +1,34 @@
 package sofwareengineering.team.thirteen.gwt.webapp.client;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.dom.client.Style;
 import com.googlecode.gwt.charts.client.*;
 import com.googlecode.gwt.charts.client.geochart.GeoChart;
 import com.googlecode.gwt.charts.client.options.DisplayMode;
-import com.googlecode.gwt.charts.client.options.Resolution;
-
-import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
-
 import com.googlecode.gwt.charts.client.geochart.GeoChartColorAxis;
 import com.googlecode.gwt.charts.client.geochart.GeoChartOptions;
-import com.googlecode.gwt.charts.client.geochart.MagnifyingGlass;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Label;
+import sofwareengineering.team.thirteen.gwt.webapp.shared.DataPoint;
 
 public class MapView extends DataView {
 
 	private DockLayoutPanel mainPanel = new DockLayoutPanel(Style.Unit.PX);
 	private GeoChart geoChart;
-	
-	//default attributes that will be changed with the Sliders/Boxes using getters and setters
-	private int currentYear=2013;
 
+	// default attributes that will be changed with the Sliders/Boxes using
+	// getters and setters
+	private int currentYear = 2013;
 
-	private double maxTemperature=40;
-	private double minTemperature=-30;
-	private double uncertainity=15;
-	//all the cities and countries will be shown
-	private String city="city";
-	private String country="country";
-	private Label yearLabel = new Label(""+currentYear);
+	private double maxTemperature = 40;
+	private double minTemperature = -30;
+	private double uncertainity = 15;
+
+	// all the cities and countries will be shown
+	private String city = "city";
+	private String country = "country";
+	private Label yearLabel = new Label("" + currentYear);
 
 	public String getCountry() {
 		return country;
@@ -63,12 +54,6 @@ public class MapView extends DataView {
 		this.uncertainity = uncertainity;
 	}
 
-	// Create the MapView
-	public MapView() {
-		initWidget(mainPanel);
-		initContent();
-	}
-
 	public double getMaxTemperature() {
 		return maxTemperature;
 	}
@@ -85,6 +70,18 @@ public class MapView extends DataView {
 		this.minTemperature = minTemperature;
 	}
 
+	// Create the MapView
+	public MapView() {
+		initWidget(mainPanel);
+		initContent();
+	}
+
+	public void setCurrentYear(int year) {
+		currentYear = year;
+	}
+	public int getCurrentYear() {
+		return currentYear;
+	}
 
 	private void initContent() {
 		yearLabel.addStyleName("gwt-YearLabel");
@@ -103,7 +100,8 @@ public class MapView extends DataView {
 	}
 
 	// Prepare the data which is shown
-	//The data will come in form of an ArrayList and can be accessed with getData().get().getRegion()
+	// The data will come in form of an ArrayList and can be accessed with
+	// getData().get().getRegion()
 	private void draw() {
 		if (getData() != null) {
 
@@ -115,24 +113,25 @@ public class MapView extends DataView {
 			for (int i = 0; i < getData().size(); i++) {
 
 				dataTable.setValue(i, 0, getData().get(i).getRegion());
-				dataTable.setValue(i, 1, getData().get(i).getAverageTemperature());
+				dataTable.setValue(i, 1,
+						getData().get(i).getAverageTemperature());
 
 			}
-			yearLabel.setText(""+currentYear);
+			yearLabel.setText("" + currentYear);
 			geoChart.draw(dataTable, getGeoChartOptions());
 		}
 	}
 
-	
-	// Set Style Option for Geochart TODO: Size of the markers
+	// Set Style Option for Geochart
 	private GeoChartOptions getGeoChartOptions() {
 		GeoChartOptions options = GeoChartOptions.create();
 		options.setDisplayMode(DisplayMode.MARKERS);
 		GeoChartColorAxis geoChartColorAxis = GeoChartColorAxis.create();
 		geoChartColorAxis.setMaxValue(40);
 		geoChartColorAxis.setMinValue(-30);
-		geoChartColorAxis.setColors("FFFFFF", "AAAAFF", "5555FF", "0000FF","0080FF", "00FFFF", "00FF80", "00FF00", "80FF00", "FFFF00"
-				, "FF8000", "FF0000", "D02A2A", "A65454", "7C7C7C");
+		geoChartColorAxis.setColors("FFFFFF", "AAAAFF", "5555FF", "0000FF",
+				"0080FF", "00FFFF", "00FF80", "00FF00", "FFFF00","FFD700",
+				"FF8000", "FF0000", "D02A2A", "A65454", "000000");
 		options.setColorAxis(geoChartColorAxis);
 		options.setDatalessRegionColor("#cecece");
 		return options;
@@ -141,12 +140,7 @@ public class MapView extends DataView {
 
 	// Method which asks for data from the DataServiceImpl class and then start
 	// the drawing of the map
-	public void setCurrentYear(int year){
-		currentYear=year;
-	}
-	public int getCurrentYear() {
-		return currentYear;
-	}
+
 	public void fetchData() {
 		AsyncCallback<ArrayList<DataPoint>> callback = new AsyncCallback<ArrayList<DataPoint>>() {
 
@@ -163,14 +157,14 @@ public class MapView extends DataView {
 		};
 
 		// call to server with the correct attributes (default at the beginning)
-		getDataService().getMapData(currentYear,minTemperature,maxTemperature,uncertainity,city,country,callback);
+		getDataService().getMapData(currentYear, minTemperature, maxTemperature,
+				uncertainity, city, country, callback);
 	}
 
 	@Override
 	public void fetchCountryList() {
 		// TODO Auto-generated method stub
-		
-	}
-	
-}
 
+	}
+
+}
