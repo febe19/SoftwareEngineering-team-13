@@ -213,15 +213,15 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 				// Reset all the values to default and reload mapView and
 				// tableView
 				mapView.setCurrentYear(2013);
-				mapView.setMinTemperature(-100);
-				mapView.setMaxTemperature(100);
+				mapView.setMinTemperature(-30);
+				mapView.setMaxTemperature(40);
 				mapView.setUncertainity(15);
 				mapView.setCity("city");
 				mapView.setCountry("country");
 				mapView.fetchData();
 				tableView.setCurrentYear(2013);
-				tableView.setMinTemperature(-100);
-				tableView.setMaxTemperature(100);
+				tableView.setMinTemperature(-30);
+				tableView.setMaxTemperature(40);
 				tableView.setUncertainity(15);
 				tableView.setCity("city");
 				tableView.setCountry("country");

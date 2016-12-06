@@ -6,13 +6,34 @@
 	padding: 30px;
 }
 
-.gwt-YearLabel {
+.gwt-DinamicInfoLabel {
 	-webkit-box-sizing: content-box;
 	-moz-box-sizing: content-box;
 	box-sizing: content-box;
 	border: none;
-	font: normal 50px/1 Verdana, Geneva, sans-serif;
+	font: normal 40px/1 Verdana, Geneva, sans-serif;
 	color: #cecece;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+.gwt-DinamicInfoYearLabel {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	border: none;
+	font: normal 60px/1 Verdana, Geneva, sans-serif;
+	color: #cecece;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+.gwt-fixInfoLabel {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	border: none;
+	font: normal 20px/1 Verdana, Geneva, sans-serif;
+	color: #cecece;
+	margin-top: 20px;
 	-o-text-overflow: ellipsis;
 	text-overflow: ellipsis;
 
