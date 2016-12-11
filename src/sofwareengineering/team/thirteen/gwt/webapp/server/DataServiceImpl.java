@@ -132,9 +132,7 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 				+" AND Temperature >="+ minTemperature
 				+" AND Temperature <="+maxTemperature
 				+" AND City ="+city
-				+" AND Country ="+country
-				+" AND Lat =Lat"
-				+" AND Lon=Lon";
+				+" AND Country ="+country;
 		
 		try {
 			statement = connection.prepareStatement(query);
@@ -147,8 +145,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 				p.setAverageTemperature(result.getDouble("Temperature"));
 				p.setUncertainity(result.getDouble("Uncertainty"));
 				p.setDate(result.getDate("Date"));
-				p.setLatitude(String.valueOf(result.getDouble("Lat")));
-				p.setLongitude(String.valueOf(result.getDouble("Lon")));
 				data.add(p);		
             }
 			
@@ -164,7 +160,6 @@ public class DataServiceImpl extends RemoteServiceServlet implements DataService
 		Connection connection = getConnection();
 		PreparedStatement statement = null;
 		ResultSet result;
-		
 		ArrayList<DataPoint> data = new ArrayList<>();
 		
 		String query = "SELECT DISTINCT COUNTRY FROM `temperature-data` ORDER BY (COUNTRY)";

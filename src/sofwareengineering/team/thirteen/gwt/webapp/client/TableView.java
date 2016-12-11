@@ -37,6 +37,7 @@ public class TableView extends DataView {
 	public TableView() {
 		fetchCountryList();
 		fetchCityList();
+		fetchData();
 		initWidget(mainPanel);
 	}
 	
@@ -157,40 +158,6 @@ public class TableView extends DataView {
 	        	}
 	        });
 	        dataTable.addColumnSortHandler(columnSortHandler);
-	        
-	        //Latitude Sort
-	        columnSortHandler.setComparator(dataTable.getColumn(5),
-	        		new Comparator<DataPoint>() {
-	        	public int compare(DataPoint o1, DataPoint o2) {
-	        		if (o1 == o2) {
-	        			return 0;
-	        		}
-
-	        		// Compare the name columns.
-	        		if (o1 != null) {
-	        			return (o2 != null) ? o1.getLatitude().compareTo(o2.getLatitude()) : 1;
-	        		}
-	        		return -1;
-	        	}
-	        });
-	        dataTable.addColumnSortHandler(columnSortHandler);
-	        //Longitude Sort
-	        columnSortHandler.setComparator(dataTable.getColumn(6),
-	        		new Comparator<DataPoint>() {
-	        	public int compare(DataPoint o1, DataPoint o2) {
-	        		if (o1 == o2) {
-	        			return 0;
-	        		}
-
-	        		// Compare the name columns.
-	        		if (o1 != null) {
-	        			return (o2 != null) ? o1.getLongitude().compareTo(o2.getLongitude()) : 1;
-	        		}
-	        		return -1;
-	        	}
-	        });
-	        dataTable.addColumnSortHandler(columnSortHandler);
-	        //Show the whole table in the scrollPabel and not only 10 entries (by default)
 	        dataTable.setVisibleRange(0,list.size());
 	        //Enable the scrolling function
 	        scrollPanel.setAlwaysShowScrollBars(true);
@@ -231,18 +198,7 @@ public class TableView extends DataView {
 				return object.getDate().toString();
 			}
         };
-        TextColumn<DataPoint> latitudeColumn = new TextColumn<DataPoint>(){
-        	@Override
-        	public String getValue(DataPoint object) {
-        		return object.getLatitude();
-        	}
-        };
-        TextColumn<DataPoint> longitudeColumn = new TextColumn<DataPoint>(){
-        	@Override
-        	public String getValue(DataPoint object) {
-        		return object.getLongitude();
-        	}
-        };
+
 
         //Set columns as sortable
         cityColumn.setSortable(true);
@@ -250,8 +206,6 @@ public class TableView extends DataView {
         temperatureColumn.setSortable(true);
         uncertainityColumn.setSortable(true);
         dateColumn.setSortable(true);
-        latitudeColumn.setSortable(true);
-        longitudeColumn.setSortable(true);
         
         //Column name in database
         countryColumn.setDataStoreName("Country");
@@ -259,8 +213,6 @@ public class TableView extends DataView {
         temperatureColumn.setDataStoreName("Temperature");
         uncertainityColumn.setDataStoreName("Uncertainty");
         dateColumn.setDataStoreName("Date");
-        latitudeColumn.setDataStoreName("Lat");
-        latitudeColumn.setDataStoreName("Lon");
         
         //column header is "Name"
         //add columns to the table
@@ -269,8 +221,6 @@ public class TableView extends DataView {
         dataTable.addColumn(temperatureColumn, "Temperature");
         dataTable.addColumn(uncertainityColumn, "Uncertainity");
         dataTable.addColumn(dateColumn, "Date");
-        dataTable.addColumn(latitudeColumn,"Latitude");
-        dataTable.addColumn(longitudeColumn,"Longitude");
 
 
 	}
