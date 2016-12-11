@@ -53,7 +53,7 @@ public class MapView extends DataView {
 		uncertaintyTitle.addStyleName("gwt-fixInfoLabel");
 
 		currentYearLabel.setText("" + currentYear);
-		currentTempLabel.setText(getMinTemperature() + " <> " + getMaxTemperature());
+		currentTempLabel.setText("["+getMinTemperature() + "," + getMaxTemperature()+"]");
 		currentUncertaintyLabel.setText("" + getUncertainity());
 
 		infoPanel.add(year);
@@ -100,7 +100,7 @@ public class MapView extends DataView {
 			// yearLabel.setText("" + currentYear);
 			fillInfoPanel();
 			currentYearLabel.setText("" + currentYear);
-			currentTempLabel.setText(getMinTemperature() + " <> " + getMaxTemperature());
+			currentTempLabel.setText("["+getMinTemperature() + "," + getMaxTemperature()+"]");
 			currentUncertaintyLabel.setText("" + getUncertainity());
 			geoChart.draw(dataTable, getGeoChartOptions());
 		}

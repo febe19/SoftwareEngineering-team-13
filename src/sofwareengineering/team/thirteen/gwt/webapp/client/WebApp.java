@@ -131,7 +131,6 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 						mapView.fetchData();
 						// TODO add uncertainty to getTableData() method and
 						// query
-						// and...HAVE FUN!
 						tableView.fetchData();
 
 					}
@@ -142,9 +141,7 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 			@Override
 			public void onChange(Widget sender) {
 				if (selectionPanel.getCountryIN()
-						.getSelectedValue() == "Show all countries"
-						|| selectionPanel.getCountryIN()
-								.getSelectedValue() == "---") {
+						.getSelectedValue() == "Show all countries") {
 					mapView.setCountry("country");
 					tableView.setCountry("country");
 					tableView.setCity("city");
@@ -264,7 +261,6 @@ public class WebApp extends DockLayoutPanel implements EntryPoint {
 								selectionPanel.getCountryIN()
 										.addItem(p.getCountry());
 							}
-							selectionPanel.getCountryIN().addItem("---");
 						}
 					}
 
